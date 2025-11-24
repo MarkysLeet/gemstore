@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-avenue-pink: #D48BA1;
+  --color-avenue-light: #F3D1DC;
+  --color-avenue-white: #FFFFFF;
+  --color-avenue-bg: #FDFBFB;
+  --color-avenue-text: #333333;
+  --color-avenue-accent: #A66E7F;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+:root {
+  --background: #FDFBFB;
+  --foreground: #333333;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+/* Custom Utilities if needed */
+.text-balance {
+  text-wrap: balance;
+}
