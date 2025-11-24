@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 import { ShoppingBag, User, Search, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCart } from "@/context/CartContext";
@@ -11,11 +12,17 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const { totalItems, setIsOpen: setCartOpen } = useCart();
-  const { user } = useAuth();
+  const { user, isAdmin } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -23,6 +30,32 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navLinks = [
+    { name: "Каталог", href: "/shop" },
+    { name: "О бренде", href: "/about" },
+    { name: "Контакты", href: "/contacts" },
+  ];
+
+  const links = [...navLinks];
+  if (isAdmin) {
+     links.push({ name: "Админка", href: "/admin" });
+  }
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/shop?q=${encodeURIComponent(searchQuery)}`);
+      setIsSearchOpen(false);
+      setSearchQuery("");
+    }
+  };
+
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
+  }, [isSearchOpen]);
 
   // Prevent hydration mismatch for user/auth dependent UI
   if (!mounted) {
@@ -36,12 +69,6 @@ export function Header() {
       </header>
     );
   }
-
-  const navLinks = [
-    { name: "Каталог", href: "/shop" },
-    { name: "О бренде", href: "/about" },
-    { name: "Контакты", href: "/contacts" },
-  ];
 
   return (
     <>
@@ -67,7 +94,7 @@ export function Header() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
+            {links.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
@@ -80,10 +107,38 @@ export function Header() {
 
           {/* Icons */}
           <div className="flex items-center gap-4">
-            <button className="hidden md:block p-2 hover:text-avenue-pink transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
-            <Link href={user ? "/profile" : "/login"} className="p-2 hover:text-avenue-pink transition-colors">
+             {/* Search Bar - Animated */}
+             <div className="relative flex items-center">
+               <AnimatePresence>
+                 {isSearchOpen && (
+                   <motion.form
+                     initial={{ width: 0, opacity: 0 }}
+                     animate={{ width: 200, opacity: 1 }}
+                     exit={{ width: 0, opacity: 0 }}
+                     onSubmit={handleSearchSubmit}
+                     className="absolute right-10 bg-white rounded-full border border-avenue-pink overflow-hidden"
+                   >
+                     <input
+                       ref={searchInputRef}
+                       type="text"
+                       className="w-full px-4 py-1.5 text-sm outline-none"
+                       placeholder="Поиск..."
+                       value={searchQuery}
+                       onChange={(e) => setSearchQuery(e.target.value)}
+                       onBlur={() => !searchQuery && setIsSearchOpen(false)}
+                     />
+                   </motion.form>
+                 )}
+               </AnimatePresence>
+                <button
+                  className="hidden md:block p-2 hover:text-avenue-pink transition-colors z-10"
+                  onClick={() => setIsSearchOpen(!isSearchOpen)}
+                >
+                  <Search className="w-5 h-5" />
+                </button>
+             </div>
+
+            <Link href={user ? (isAdmin ? "/admin" : "/profile") : "/login"} className="p-2 hover:text-avenue-pink transition-colors">
               <User className="w-5 h-5" />
             </Link>
             <button
@@ -118,7 +173,7 @@ export function Header() {
               </button>
             </div>
             <nav className="flex flex-col gap-6 text-lg font-medium">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <Link
                   key={link.name}
                   href={link.href}

@@ -2,73 +2,79 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { Mail, Lock, ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const { login } = useAuth();
-  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login(email);
-    router.push("/profile");
+    setError("");
+    const success = login(identifier, password);
+    if (!success) {
+      setError("Неверный логин или пароль");
+    }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-avenue-bg py-12 px-4">
-      <div className="bg-white p-8 md:p-12 rounded-3xl shadow-xl w-full max-w-md border border-gray-100">
-        <h1 className="font-display text-3xl font-bold text-center mb-2">Добро пожаловать</h1>
-        <p className="text-gray-500 text-center mb-8">Войдите в личный кабинет Avenue</p>
+    <div className="min-h-screen bg-avenue-bg flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white p-8 rounded-2xl shadow-lg max-w-md w-full"
+      >
+        <h1 className="font-display text-3xl font-bold mb-6 text-center">Вход</h1>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700 ml-1">Email</label>
-            <div className="relative">
-              <Mail className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-avenue-pink focus:ring-2 focus:ring-avenue-pink/20 transition-all"
-                placeholder="hello@example.com"
-              />
-            </div>
+        {error && (
+          <div className="bg-red-50 text-red-500 p-3 rounded-lg mb-4 text-sm text-center">
+            {error}
           </div>
-          <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-700 ml-1">Пароль</label>
-            <div className="relative">
-              <Lock className="absolute left-4 top-3.5 w-5 h-5 text-gray-400" />
-              <input
-                type="password"
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:bg-white focus:border-avenue-pink focus:ring-2 focus:ring-avenue-pink/20 transition-all"
-                placeholder="••••••••"
-              />
-            </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email или Телефон</label>
+            <input
+              type="text"
+              value={identifier}
+              onChange={(e) => setIdentifier(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-avenue-pink/20 focus:border-avenue-pink transition-all"
+              placeholder="admin"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Пароль</label>
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-avenue-pink/20 focus:border-avenue-pink transition-all"
+              placeholder="grozan"
+              required
+            />
           </div>
 
           <button
             type="submit"
-            className="w-full bg-avenue-pink text-white py-4 rounded-xl font-bold hover:bg-avenue-accent transition-all shadow-lg hover:shadow-xl flex items-center justify-center gap-2 group"
+            className="w-full bg-avenue-pink text-white py-3 rounded-lg font-bold hover:bg-avenue-accent transition-colors"
           >
-            Войти <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            Войти
           </button>
         </form>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
+        <div className="mt-6 text-center text-sm text-gray-500">
           Нет аккаунта?{" "}
-          <Link href="/register" className="text-avenue-pink font-medium hover:underline">
+          <Link href="/register" className="text-avenue-pink hover:underline font-medium">
             Зарегистрироваться
           </Link>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
