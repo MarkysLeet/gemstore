@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/context/AuthContext";
+import { CartProvider } from "@/context/CartContext";
+import { ProductProvider } from "@/context/ProductContext";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { CartDrawer } from "@/components/cart/CartDrawer";
 
 const inter = Inter({
   variable: "--font-body",
@@ -27,7 +33,18 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} antialiased bg-avenue-bg text-avenue-text`}
       >
-        {children}
+        <AuthProvider>
+          <ProductProvider>
+            <CartProvider>
+              <Header />
+              <main className="pt-20 min-h-screen">
+                {children}
+              </main>
+              <Footer />
+              <CartDrawer />
+            </CartProvider>
+          </ProductProvider>
+        </AuthProvider>
       </body>
     </html>
   );
