@@ -4,11 +4,12 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { useProducts, Product } from "@/context/ProductContext";
-import { Plus, Trash2, Edit2, X, Save } from "lucide-react";
+import { Plus, Trash2, Edit2, X, Save, LogOut } from "lucide-react";
 import Image from "next/image";
+import toast from "react-hot-toast";
 
 export default function AdminPage() {
-  const { isAdmin } = useAuth();
+  const { isAdmin, logout } = useAuth();
   const { products, addProduct, updateProduct, deleteProduct } = useProducts();
   const router = useRouter();
   const [mounted, setMounted] = useState(false);
@@ -91,12 +92,23 @@ export default function AdminPage() {
       <div className="container mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="font-display text-3xl font-bold">Панель Администратора</h1>
-          <button
-            onClick={() => handleOpenModal()}
-            className="bg-avenue-pink text-white px-6 py-3 rounded-lg font-bold hover:bg-avenue-accent transition-colors flex items-center gap-2"
-          >
-            <Plus className="w-5 h-5" /> Добавить товар
-          </button>
+          <div className="flex gap-4">
+            <button
+              onClick={() => {
+                logout();
+                toast.success("Вы вышли из системы");
+              }}
+              className="bg-gray-200 text-gray-700 px-4 py-3 rounded-lg font-bold hover:bg-gray-300 transition-colors flex items-center gap-2"
+            >
+              <LogOut className="w-5 h-5" /> Выйти
+            </button>
+            <button
+              onClick={() => handleOpenModal()}
+              className="bg-avenue-pink text-white px-6 py-3 rounded-lg font-bold hover:bg-avenue-accent transition-colors flex items-center gap-2"
+            >
+              <Plus className="w-5 h-5" /> Добавить товар
+            </button>
+          </div>
         </div>
 
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
