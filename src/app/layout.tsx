@@ -7,6 +7,7 @@ import { ProductProvider } from "@/context/ProductContext";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   variable: "--font-body",
@@ -42,6 +43,7 @@ export default function RootLayout({
               </main>
               <Footer />
               <CartDrawer />
+              <Toaster position="top-center" />
             </CartProvider>
           </ProductProvider>
         </AuthProvider>

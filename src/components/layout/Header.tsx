@@ -39,7 +39,7 @@ export function Header() {
 
   const links = [...navLinks];
   if (isAdmin) {
-     links.push({ name: "Админка", href: "/admin" });
+     links.push({ name: "А.Панель", href: "/admin" });
   }
 
   const handleSearchSubmit = (e: React.FormEvent) => {

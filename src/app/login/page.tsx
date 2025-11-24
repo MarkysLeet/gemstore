@@ -4,19 +4,20 @@ import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { motion } from "framer-motion";
+import toast from "react-hot-toast";
 
 export default function LoginPage() {
   const [identifier, setIdentifier] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setError("");
     const success = login(identifier, password);
     if (!success) {
-      setError("Неверный логин или пароль");
+      toast.error("Неверный логин или пароль");
+    } else {
+      toast.success("Вы успешно вошли!");
     }
   };
 
@@ -29,12 +30,6 @@ export default function LoginPage() {
       >
         <h1 className="font-display text-3xl font-bold mb-6 text-center">Вход</h1>
 
-        {error && (
-          <div className="bg-red-50 text-red-500 p-3 rounded-lg mb-4 text-sm text-center">
-            {error}
-          </div>
-        )}
-
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email или Телефон</label>
@@ -43,7 +38,7 @@ export default function LoginPage() {
               value={identifier}
               onChange={(e) => setIdentifier(e.target.value)}
               className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-avenue-pink/20 focus:border-avenue-pink transition-all"
-              placeholder="admin"
+              placeholder="Логин"
               required
             />
           </div>
@@ -55,7 +50,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-avenue-pink/20 focus:border-avenue-pink transition-all"
-              placeholder="grozan"
+              placeholder="Пароль"
               required
             />
           </div>
