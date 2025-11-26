@@ -43,7 +43,7 @@ function ShopContent() {
           return b.price - a.price;
         case "newest":
           // Assuming higher ID means newer
-          return b.id - a.id;
+          return Number(b.id) - Number(a.id);
         case "popularity":
         default:
           // Placeholder for popularity logic
