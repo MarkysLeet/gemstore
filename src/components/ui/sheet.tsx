@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion";
 import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -61,8 +61,9 @@ const SheetTrigger = React.forwardRef<HTMLButtonElement, SheetTriggerProps>(({ c
 SheetTrigger.displayName = "SheetTrigger";
 
 
-interface SheetContentProps extends React.HTMLAttributes<HTMLDivElement> {
+interface SheetContentProps extends HTMLMotionProps<"div"> {
     onClose?: () => void;
+    children: React.ReactNode;
 }
 
 const SheetContent = React.forwardRef<HTMLDivElement, SheetContentProps>(({ className, children, onClose, ...props }, ref) => (
