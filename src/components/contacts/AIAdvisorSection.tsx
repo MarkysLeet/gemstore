@@ -22,7 +22,7 @@ export function AIAdvisorSection() {
   };
 
   return (
-    <section className="relative w-full h-[70vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden bg-background">
+    <section className="relative w-full h-[70vh] min-h-[500px] flex flex-col items-center justify-center bg-background">
       {/* Background Glow/Sphere */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div

@@ -70,18 +70,19 @@ export function HeroSection() {
               </span>
             </Link>
           </motion.div>
+
+          {/* Scroll Indicator */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, y: [0, 10, 0] }}
+            transition={{ delay: 1.2, duration: 2, repeat: Infinity }}
+            className="mt-8 text-white/50 flex flex-col items-center gap-2 pointer-events-none"
+          >
+            <span className="text-[10px] tracking-widest uppercase">Scroll</span>
+            <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-neon-pink to-white/0" />
+          </motion.div>
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="absolute bottom-24 left-1/2 -translate-x-1/2 text-white/50 flex flex-col items-center gap-2 pointer-events-none"
-      >
-        <span className="text-[10px] tracking-widest uppercase">Scroll</span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-white/0 via-neon-pink to-white/0" />
-      </motion.div>
     </section>
   );
 }
