@@ -42,7 +42,7 @@ const SAMPLE_PRODUCTS: Product[] = [
 
 export function ProductGrid() {
   return (
-    <section className="py-24 bg-midnight relative overflow-hidden">
+    <section className="py-24 bg-background relative overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-1/4 left-0 w-[500px] h-[500px] bg-neon-pink/5 rounded-full blur-[120px]" />
 

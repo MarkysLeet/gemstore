@@ -7,7 +7,7 @@ import { AIRecommendation } from "@/components/home/AIRecommendation";
 
 export default function Home() {
   return (
-    <div className="bg-midnight min-h-screen text-white overflow-x-hidden selection:bg-neon-pink selection:text-white">
+    <div className="bg-background min-h-screen overflow-x-hidden selection:bg-neon-pink selection:text-white">
 
       {/* 1. Video-First Hero Section with Kinetic Typography */}
       <HeroSection />

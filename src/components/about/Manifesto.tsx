@@ -5,7 +5,7 @@ import { Diamond } from "lucide-react";
 
 export function Manifesto() {
   return (
-    <section className="relative w-full h-[70vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden bg-midnight">
+    <section className="relative w-full h-[70vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden bg-background">
       {/* Background Glow/Sphere - Soft Pink for Light Theme */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div

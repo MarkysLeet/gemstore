@@ -59,8 +59,8 @@ function ShopContent() {
   };
 
   return (
-    <div className="bg-avenue-bg min-h-screen">
-      <div className="container mx-auto px-4 md:px-6 py-12">
+    <div className="bg-avenue-bg min-h-screen pt-32">
+      <div className="container mx-auto px-4 md:px-6 pb-12">
         <div className="flex items-center justify-between mb-8">
             <h1 className="font-display text-4xl md:text-5xl font-bold">
                 {searchQuery ? `Поиск: "${searchQuery}"` : "Каталог"}

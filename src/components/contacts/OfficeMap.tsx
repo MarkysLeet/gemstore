@@ -34,7 +34,7 @@ export function OfficeMap() {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   return (
-    <section className="relative w-full py-20 bg-midnight overflow-hidden">
+    <section className="relative w-full py-20 bg-background overflow-hidden">
       <div className="container mx-auto px-4 z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -75,7 +75,7 @@ export function OfficeMap() {
 
 function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setActiveId: (id: string | null) => void }) {
   return (
-    <div className="relative w-full aspect-[21/9] bg-midnight-light/30 rounded-3xl border border-glass-border overflow-hidden group">
+    <div className="relative w-full aspect-[21/9] bg-secondary/30 rounded-3xl border border-glass-border overflow-hidden group">
       {/* Abstract Map SVG (Turkey Region Focus abstract) */}
        <div className="absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-30">
         <svg className="w-full h-full text-foreground/10" viewBox="0 0 100 60" fill="currentColor">
