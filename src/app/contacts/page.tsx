@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 
 export default function ContactsPage() {
   return (
-    <div className="bg-midnight min-h-screen">
+    <div className="bg-midnight min-h-screen pt-24">
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
