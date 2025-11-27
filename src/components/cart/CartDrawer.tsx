@@ -31,10 +31,10 @@ export function CartDrawer() {
             className="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-midnight border-l border-glass-border z-[70] shadow-2xl flex flex-col"
           >
             <div className="p-6 flex justify-between items-center border-b border-glass-border">
-              <h2 className="text-xl font-display font-bold flex items-center gap-2 text-white">
+              <h2 className="text-xl font-display font-bold flex items-center gap-2 text-foreground">
                 <ShoppingBag className="w-5 h-5 text-neon-pink" /> Корзина
               </h2>
-              <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-white transition-colors">
+              <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-foreground transition-colors">
                 <X className="w-6 h-6" />
               </button>
             </div>
@@ -43,11 +43,11 @@ export function CartDrawer() {
               {items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center text-gray-400">
                   <ShoppingBag className="w-16 h-16 mb-4 text-gray-600" />
-                  <p className="text-lg font-medium mb-2 text-white">Ваша корзина пуста</p>
+                  <p className="text-lg font-medium mb-2 text-foreground">Ваша корзина пуста</p>
                   <p className="text-sm mb-6">Добавьте товары из каталога, чтобы сделать заказ</p>
                   <button
                     onClick={() => setIsOpen(false)}
-                    className="text-neon-pink hover:text-white transition-colors hover:underline"
+                    className="text-neon-pink hover:text-foreground transition-colors hover:underline"
                   >
                     Перейти в каталог
                   </button>
@@ -65,7 +65,7 @@ export function CartDrawer() {
                     </div>
                     <div className="flex-1">
                       <div className="flex justify-between items-start mb-1">
-                        <h3 className="font-medium text-sm pr-4 line-clamp-2 text-white">{item.name}</h3>
+                        <h3 className="font-medium text-sm pr-4 line-clamp-2 text-foreground">{item.name}</h3>
                         <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500">
                           <X className="w-4 h-4" />
                         </button>
@@ -75,14 +75,14 @@ export function CartDrawer() {
                          <div className="flex items-center border border-glass-border rounded-lg bg-black/20">
                            <button
                              onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                             className="p-1 px-2 hover:bg-white/10 text-gray-400 hover:text-white"
+                             className="p-1 px-2 hover:bg-black/10 text-gray-400 hover:text-foreground"
                            >
                              <Minus className="w-3 h-3" />
                            </button>
-                           <span className="text-sm font-medium w-6 text-center text-white">{item.quantity}</span>
+                           <span className="text-sm font-medium w-6 text-center text-foreground">{item.quantity}</span>
                            <button
                              onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                             className="p-1 px-2 hover:bg-white/10 text-gray-400 hover:text-white"
+                             className="p-1 px-2 hover:bg-black/10 text-gray-400 hover:text-foreground"
                            >
                              <Plus className="w-3 h-3" />
                            </button>
@@ -101,7 +101,7 @@ export function CartDrawer() {
               <div className="p-6 border-t border-glass-border bg-black/20">
                 <div className="flex justify-between items-center mb-6">
                   <span className="text-gray-400">Итого:</span>
-                  <span className="text-2xl font-display font-bold text-white">{totalPrice} ₽</span>
+                  <span className="text-2xl font-display font-bold text-foreground">{totalPrice} ₽</span>
                 </div>
                 <Link
                   href="/checkout"

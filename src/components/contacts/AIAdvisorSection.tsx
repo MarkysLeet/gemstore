@@ -46,7 +46,7 @@ export function AIAdvisorSection() {
                 repeat: Infinity,
                 ease: "linear"
              }}
-             className="absolute w-[280px] h-[280px] md:w-[480px] md:h-[480px] rounded-full border border-white/10 border-dashed"
+             className="absolute w-[280px] h-[280px] md:w-[480px] md:h-[480px] rounded-full border border-foreground/10 border-dashed"
         />
       </div>
 
@@ -63,14 +63,14 @@ export function AIAdvisorSection() {
                 <span>AI-FIRST SUPPORT</span>
             </div>
 
-            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+            <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight">
               Start a <br/>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400 hover:font-black transition-all duration-300 cursor-default">
                 Conversation
               </span>
             </h1>
 
-            <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-gray-600 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed">
               Мгновенный подбор ухода и консультации. <br className="hidden md:block" />
               Наш AI-эксперт готов помочь вам 24/7, без ожидания.
             </p>
@@ -79,7 +79,7 @@ export function AIAdvisorSection() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleChatStart}
-              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-white text-midnight font-bold rounded-full text-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
+              className="group relative inline-flex items-center gap-3 px-8 py-4 bg-neon-pink text-white font-bold rounded-full text-lg overflow-hidden transition-all hover:shadow-[0_0_30px_rgba(255,255,255,0.3)]"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-neon-pink to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <span className="relative z-10 flex items-center gap-2 group-hover:text-black transition-colors">
@@ -92,7 +92,7 @@ export function AIAdvisorSection() {
 
       {/* Decorative Elements */}
       <div className="absolute bottom-10 left-0 right-0 text-center">
-        <span className="text-white/20 text-xs tracking-[0.5em] font-mono animate-pulse">
+        <span className="text-foreground/20 text-xs tracking-[0.5em] font-mono animate-pulse">
           SCROLL FOR CONTACTS
         </span>
       </div>

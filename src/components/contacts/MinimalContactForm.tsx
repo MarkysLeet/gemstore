@@ -35,7 +35,7 @@ export function MinimalContactForm() {
     <section className="py-20 bg-midnight relative">
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="text-center mb-12">
-            <h2 className="font-display text-3xl text-white mb-4">Классическая связь</h2>
+            <h2 className="font-display text-3xl text-foreground mb-4">Классическая связь</h2>
             <p className="text-gray-500 text-sm">Предпочитаете email? Заполните форму ниже.</p>
         </div>
 
@@ -89,7 +89,7 @@ export function MinimalContactForm() {
                     onFocus={() => setFocusedField('message')}
                     onBlur={() => setFocusedField(null)}
                     rows={1}
-                    className="w-full bg-transparent border-b border-white/20 py-2 text-white focus:outline-none focus:border-neon-pink transition-colors resize-none min-h-[40px]"
+                    className="w-full bg-transparent border-b border-foreground/20 py-2 text-foreground focus:outline-none focus:border-neon-pink transition-colors resize-none min-h-[40px]"
                 />
             </div>
 
@@ -98,7 +98,7 @@ export function MinimalContactForm() {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                     type="submit"
-                    className="group inline-flex items-center gap-2 text-white font-mono uppercase tracking-widest text-sm hover:text-neon-pink transition-colors"
+                    className="group inline-flex items-center gap-2 text-foreground font-mono uppercase tracking-widest text-sm hover:text-neon-pink transition-colors"
                 >
                     <span>Отправить</span>
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -148,7 +148,7 @@ function InputField({
                 onFocus={() => setFocusedField(name)}
                 onBlur={() => setFocusedField(null)}
                 required={required}
-                className="w-full bg-transparent border-b border-white/20 py-2 text-white focus:outline-none focus:border-neon-pink transition-colors"
+                className="w-full bg-transparent border-b border-foreground/20 py-2 text-foreground focus:outline-none focus:border-neon-pink transition-colors"
             />
         </div>
     );

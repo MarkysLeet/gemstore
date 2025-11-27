@@ -52,7 +52,7 @@ export function SocialHub() {
         <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="font-display text-4xl md:text-5xl text-white mb-12"
+            className="font-display text-4xl md:text-5xl text-foreground mb-12"
         >
             Social Hub
         </motion.h2>
@@ -73,7 +73,7 @@ function MagneticButton({ social }: { social: any }) {
       href={social.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="relative group w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center rounded-2xl glass transition-all duration-300 border-white/20"
+      className="relative group w-24 h-24 md:w-32 md:h-32 flex flex-col items-center justify-center rounded-2xl glass transition-all duration-300 border-foreground/20"
       whileHover={{ scale: 1.1, y: -5 }}
       whileTap={{ scale: 0.95 }}
     >
@@ -81,9 +81,9 @@ function MagneticButton({ social }: { social: any }) {
         <div className="absolute inset-0 rounded-2xl bg-gradient-to-tr from-neon-pink to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
         {/* Icon */}
-        <div className="relative z-10 text-white/80 group-hover:text-black transition-colors duration-300">
+        <div className="relative z-10 text-foreground/80 group-hover:text-black transition-colors duration-300">
             <social.icon className="w-8 h-8 md:w-10 md:h-10 mb-2 mx-auto" />
-            <span className="text-xs font-mono uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-white">
+            <span className="text-xs font-mono uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity duration-300 absolute -bottom-6 left-1/2 -translate-x-1/2 whitespace-nowrap text-foreground">
                 {social.label}
             </span>
         </div>

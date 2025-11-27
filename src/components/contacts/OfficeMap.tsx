@@ -42,19 +42,19 @@ export function OfficeMap() {
           className="flex flex-col md:flex-row justify-between items-end mb-12 gap-6"
         >
             <div>
-                <h2 className="font-display text-4xl md:text-5xl text-white mb-2">
+                <h2 className="font-display text-4xl md:text-5xl text-foreground mb-2">
                 Глобальное присутствие
                 </h2>
-                <p className="text-gray-400">Наши офисы и магазины</p>
+                <p className="text-gray-600">Наши офисы и магазины</p>
             </div>
             <div className="flex gap-4">
                  <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-neon-pink shadow-[0_0_10px_#FF10F0]"></span>
-                    <span className="text-sm text-gray-400">Flagship</span>
+                    <span className="text-sm text-gray-600">Flagship</span>
                  </div>
                  <div className="flex items-center gap-2">
                     <span className="w-3 h-3 rounded-full bg-white/50"></span>
-                    <span className="text-sm text-gray-400">Warehouse</span>
+                    <span className="text-sm text-gray-600">Warehouse</span>
                  </div>
             </div>
         </motion.div>
@@ -78,7 +78,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
     <div className="relative w-full aspect-[21/9] bg-midnight-light/30 rounded-3xl border border-glass-border overflow-hidden group">
       {/* Abstract Map SVG (Turkey Region Focus abstract) */}
        <div className="absolute inset-0 opacity-20 transition-opacity duration-500 group-hover:opacity-30">
-        <svg className="w-full h-full text-white/10" viewBox="0 0 100 60" fill="currentColor">
+        <svg className="w-full h-full text-foreground/10" viewBox="0 0 100 60" fill="currentColor">
             {/* Abstract Shapes resembling landmass */}
             <path d="M40,10 Q60,5 70,20 T60,50 T30,45 T20,20 Z" />
             <circle cx="55" cy="40" r="30" fill="none" stroke="currentColor" strokeWidth="0.2" strokeDasharray="2 2" />
@@ -107,7 +107,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
              className="absolute top-6 left-1/2 -translate-x-1/2 mt-2 flex flex-col items-center pointer-events-none"
              animate={{ opacity: activeId === loc.id ? 1 : 0.7 }}
           >
-             <span className={`text-xs font-mono tracking-widest uppercase whitespace-nowrap ${activeId === loc.id ? 'text-neon-pink' : 'text-white/60'}`}>
+             <span className={`text-xs font-mono tracking-widest uppercase whitespace-nowrap ${activeId === loc.id ? 'text-neon-pink' : 'text-foreground/60'}`}>
                 {loc.city}
              </span>
           </motion.div>
@@ -125,7 +125,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
           >
             <button
                 onClick={() => setActiveId(null)}
-                className="self-end text-white/50 hover:text-white transition-colors"
+                className="self-end text-foreground/50 hover:text-foreground transition-colors"
             >
                 <X size={24} />
             </button>
@@ -147,10 +147,10 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
                          </div>
                     </div>
 
-                    <h3 className="font-display text-3xl text-white mb-1">
+                    <h3 className="font-display text-3xl text-foreground mb-1">
                         {LOCATIONS.find(i => i.id === activeId)?.city}
                     </h3>
-                    <p className="text-gray-400 text-sm mb-6">
+                    <p className="text-gray-600 text-sm mb-6">
                         {LOCATIONS.find(i => i.id === activeId)?.name}
                     </p>
 
@@ -165,7 +165,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
                         </div>
                         <div className="flex items-start gap-3 text-sm text-gray-300">
                             <Navigation className="text-neon-pink w-5 h-5 shrink-0" />
-                            <a href="#" className="hover:text-white underline decoration-gray-600 underline-offset-4">
+                            <a href="#" className="hover:text-foreground underline decoration-gray-600 underline-offset-4">
                                 Построить маршрут
                             </a>
                         </div>
@@ -200,17 +200,17 @@ function MobileCarousel({ activeId, setActiveId }: { activeId: string | null, se
                                     </span>
                                 </div>
 
-                                <h3 className="font-display text-3xl text-white mb-2">{loc.city}</h3>
-                                <p className="text-gray-400 text-sm mb-6">{loc.address}</p>
+                                <h3 className="font-display text-3xl text-foreground mb-2">{loc.city}</h3>
+                                <p className="text-gray-600 text-sm mb-6">{loc.address}</p>
 
                                 <div className="mt-auto space-y-2">
-                                    <div className="flex items-center gap-2 text-xs text-white/60">
+                                    <div className="flex items-center gap-2 text-xs text-foreground/60">
                                         <Clock size={12} className="text-neon-pink" />
                                         {loc.hours}
                                     </div>
-                                    <div className="flex items-center gap-2 text-xs text-white/60">
+                                    <div className="flex items-center gap-2 text-xs text-foreground/60">
                                         <Navigation size={12} className="text-neon-pink" />
-                                        <a href="#" className="hover:text-white">Построить маршрут</a>
+                                        <a href="#" className="hover:text-foreground">Построить маршрут</a>
                                     </div>
                                 </div>
                              </div>
@@ -218,7 +218,7 @@ function MobileCarousel({ activeId, setActiveId }: { activeId: string | null, se
                     </div>
                 ))}
             </div>
-             <div className="text-center text-white/30 text-xs animate-pulse">
+             <div className="text-center text-foreground/30 text-xs animate-pulse">
                 ← Свайп для просмотра →
             </div>
         </div>

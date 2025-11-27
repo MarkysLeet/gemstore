@@ -33,7 +33,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${inter.variable} ${playfair.variable} antialiased bg-midnight text-white`}
+        className={`${inter.variable} ${playfair.variable} antialiased bg-midnight text-foreground`}
       >
         <AuthProvider>
           <ProductProvider>

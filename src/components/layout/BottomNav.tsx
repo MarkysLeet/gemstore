@@ -30,7 +30,7 @@ export function BottomNav() {
                 key={item.href}
                 href={item.href}
                 className={`relative flex flex-col items-center justify-center w-full h-full transition-colors ${
-                  isActive ? "text-neon-pink" : "text-gray-400 hover:text-white"
+                  isActive ? "text-neon-pink" : "text-gray-600 hover:text-foreground"
                 }`}
               >
                 <div className="relative p-1">

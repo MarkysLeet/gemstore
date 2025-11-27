@@ -16,10 +16,10 @@ export function AIRecommendation() {
           <div className="relative z-10 flex-1">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass mb-6 border-neon-pink/30">
               <Sparkles className="w-4 h-4 text-neon-pink" />
-              <span className="text-xs font-bold tracking-widest uppercase text-white">AI Technology</span>
+              <span className="text-xs font-bold tracking-widest uppercase text-foreground">AI Technology</span>
             </div>
 
-            <h2 className="font-display text-4xl md:text-5xl text-white mb-6">
+            <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
               Personalized <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-white">
                 Skin Analysis
@@ -48,8 +48,8 @@ export function AIRecommendation() {
 
                <div className="h-full w-full bg-black/50 rounded-xl flex items-center justify-center relative overflow-hidden">
                   <div className="text-center">
-                    <ScanFace className="w-16 h-16 text-white/20 mx-auto mb-4" />
-                    <p className="text-white/40 text-sm">Scanning...</p>
+                    <ScanFace className="w-16 h-16 text-foreground/20 mx-auto mb-4" />
+                    <p className="text-foreground/40 text-sm">Scanning...</p>
                   </div>
 
                   {/* Floating Data Points */}
