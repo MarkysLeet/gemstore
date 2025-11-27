@@ -29,7 +29,7 @@ export function AIRecommendation() {
               Our AI algorithm analyzes your skin type and nail condition to recommend the perfect care routine and products tailored just for you.
             </p>
 
-            <button className="px-8 py-4 bg-white text-midnight font-bold rounded-full hover:bg-gray-200 transition-colors flex items-center gap-2">
+            <button className="px-8 py-4 bg-foreground text-white font-bold rounded-full hover:bg-neon-pink transition-colors flex items-center gap-2">
               <ScanFace className="w-5 h-5" />
               Start Analysis
             </button>

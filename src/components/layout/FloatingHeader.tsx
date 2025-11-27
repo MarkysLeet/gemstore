@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { ShoppingBag, Search, User } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
@@ -9,8 +10,12 @@ import { useCart } from "@/context/CartContext";
 
 export function FloatingHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
   const { items } = useCart();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+
+  const isHome = pathname === "/";
+  const isDarkText = !isHome || isScrolled;
 
   useEffect(() => {
     const handleScroll = () => {
@@ -34,21 +39,22 @@ export function FloatingHeader() {
           className={`relative flex items-center justify-between px-8 py-3 rounded-full transition-all duration-500 ${
             isScrolled
               ? "glass shadow-sm border border-glass-border bg-white/40 backdrop-blur-md"
-              : "bg-transparent border-transparent"
+              : isHome
+              ? "bg-transparent border-transparent"
+              : "bg-white/50 backdrop-blur-sm border border-white/20"
           }`}
         >
           <Link href="/">
-             {/* Logo - Assuming Logo component handles color, or we need to check it */}
              <Logo />
           </Link>
 
           <nav className="flex items-center gap-8">
-            <NavLink href="/shop" isScrolled={isScrolled}>Каталог</NavLink>
-            <NavLink href="/about" isScrolled={isScrolled}>Бренд</NavLink>
-            <NavLink href="/contacts" isScrolled={isScrolled}>Контакты</NavLink>
+            <NavLink href="/shop" isDarkText={isDarkText}>Каталог</NavLink>
+            <NavLink href="/about" isDarkText={isDarkText}>Бренд</NavLink>
+            <NavLink href="/contacts" isDarkText={isDarkText}>Контакты</NavLink>
           </nav>
 
-          <div className={`flex items-center gap-6 transition-colors duration-300 ${isScrolled ? "text-foreground" : "text-white"}`}>
+          <div className={`flex items-center gap-6 transition-colors duration-300 ${isDarkText ? "text-foreground" : "text-white"}`}>
             <button className="hover:text-neon-pink transition-colors">
               <Search className="w-5 h-5" />
             </button>
@@ -70,12 +76,12 @@ export function FloatingHeader() {
   );
 }
 
-function NavLink({ href, children, isScrolled }: { href: string; children: React.ReactNode; isScrolled: boolean }) {
+function NavLink({ href, children, isDarkText }: { href: string; children: React.ReactNode; isDarkText: boolean }) {
   return (
     <Link
       href={href}
       className={`relative group text-sm font-medium tracking-wide transition-colors duration-300 ${
-        isScrolled ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
+        isDarkText ? "text-foreground/80 hover:text-foreground" : "text-white/90 hover:text-white"
       }`}
     >
       {children}

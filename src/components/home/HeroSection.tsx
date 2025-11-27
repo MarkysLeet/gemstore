@@ -10,18 +10,18 @@ export function HeroSection() {
       className="relative h-screen w-full overflow-hidden flex items-center justify-center bg-black"
     >
       {/* Video Background */}
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-black/30 z-10" /> {/* Dark overlay for text readability */}
 
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-           <source src="https://videos.pexels.com/video-files/5200378/5200378-uhd_2560_1440_25fps.mp4" type="video/mp4" />
-        </video>
+        <div className="absolute inset-0 -top-[20%] -bottom-[20%] -left-[20%] -right-[20%] w-[140%] h-[140%]">
+          <iframe
+            src="https://www.youtube.com/embed/3jirvasSGD4?autoplay=1&mute=1&controls=0&loop=1&playlist=3jirvasSGD4&playsinline=1&showinfo=0&rel=0&enablejsapi=1&disablekb=1&iv_load_policy=3&modestbranding=1"
+            title="Hero Video"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            className="w-full h-full object-cover pointer-events-none"
+            style={{ border: "none" }}
+          />
+        </div>
 
         {/* Fallback Image */}
         <div className="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1632515907483-365261543b74?q=80&w=2560')] bg-cover bg-center opacity-50 mix-blend-overlay" />
