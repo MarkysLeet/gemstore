@@ -9,6 +9,12 @@
   --color-neon-pink: #E040AB; /* Softer Luxurious Pink */
   --color-neon-pink-dim: #C2185B; /* Dimmer Pink */
 
+  /* Aliases and Functional Colors */
+  --color-avenue-pink: #E040AB;
+  --color-avenue-bg: #FAF9F6;
+  --color-foreground: #1A1A1A;
+  --color-background: #FAF9F6;
+
   --color-glass-border: rgba(0, 0, 0, 0.08);
   --color-glass-bg: rgba(255, 255, 255, 0.6);
 
