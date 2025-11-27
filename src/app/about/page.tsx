@@ -1,140 +1,86 @@
 "use client";
 
-import { motion, Variants, useScroll, useTransform } from "framer-motion";
-import { Factory, Gem, Handshake, MailQuestion } from "lucide-react";
-import Link from "next/link";
-import { useRef } from "react";
-
-const sections = [
-  {
-    icon: Factory,
-    title: "Собственное производство",
-    text: "Мы контролируем каждый этап создания продукта — от формулы до упаковки. Это гарантирует стабильно высокое качество и позволяет нам быстро внедрять инновации, опережая тренды.",
-  },
-  {
-    icon: Gem,
-    title: "Высокие стандарты и огромный выбор",
-    text: "Наша палитра насчитывает сотни уникальных оттенков, а формулы соответствуют международным стандартам безопасности. С Avenue Professional вы уверены в безупречном результате.",
-  },
-  {
-    icon: Handshake,
-    title: "Поддержка и консультации",
-    text: "Наша команда — это не просто менеджеры, а опытные мастера и технологи. Мы говорим с вами на одном языке и всегда готовы помочь с выбором или дать профессиональный совет.",
-  },
-    {
-    icon: MailQuestion,
-    title: "Русскоязычный персонал",
-    text: "Мы полностью русскоязычная команда, что обеспечивает легкое и эффективное общение. Мы всегда готовы ответить на ваши вопросы и предоставить поддержку на вашем родном языке.",
-  },
-];
-
-const containerVariants: Variants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.3,
-    },
-  },
-};
-
-const itemVariants: Variants = {
-  hidden: { y: 50, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.8,
-      ease: [0.6, -0.05, 0.01, 0.99],
-    },
-  },
-};
-
-function ParallaxSection({ children }: { children: React.ReactNode }) {
-  const ref = useRef(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["-20%", "20%"]);
-
-  return (
-    <section>
-      <div ref={ref}>
-        <motion.div style={{ y }}>{children}</motion.div>
-      </div>
-    </section>
-  );
-}
+import { Manifesto } from "@/components/about/Manifesto";
+import { IngredientMap } from "@/components/about/IngredientMap";
+import { motion } from "framer-motion";
+import { Microscope, Recycle } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="w-full bg-avenue-bg">
-      {/* Hero Section */}
-      <motion.section
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        className="min-h-screen flex flex-col justify-center items-center text-center p-4 pt-24" // Added top padding
-      >
-        <motion.h1 variants={itemVariants} className="font-display text-5xl md:text-7xl font-bold mb-4">
-          Avenue Professional
-        </motion.h1>
-        <motion.p variants={itemVariants} className="text-xl md:text-2xl text-gray-600 max-w-3xl mb-8">
-          Больше, чем просто бренд. Это ваш партнер <br /> в создании безупречного маникюра.
-        </motion.p>
-        <motion.div variants={itemVariants} className="animate-bounce mt-8">
-          <svg className="w-8 h-8 text-avenue-pink" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-        </motion.div>
-      </motion.section>
+    <div className="bg-midnight min-h-screen text-white overflow-hidden">
+      {/* SECTION 1: Manifesto (Hero) */}
+      <Manifesto />
 
-      {/* Features Sections */}
-      <div className="bg-white py-20 overflow-hidden">
-        <div className="container mx-auto px-4">
-          <div className="grid gap-24 max-w-4xl mx-auto">
-            {sections.map((section, index) => (
-              <ParallaxSection key={index}>
-                <motion.div
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, amount: 0.3 }}
-                  variants={containerVariants}
-                  className="text-center"
-                >
-                  <motion.div variants={itemVariants} className="mb-6">
-                    <section.icon className="h-16 w-16 mx-auto text-avenue-pink" />
-                  </motion.div>
-                  <motion.h2 variants={itemVariants} className="font-display text-4xl md:text-5xl font-bold mb-4">
-                    {section.title}
-                  </motion.h2>
-                  <motion.p variants={itemVariants} className="text-lg text-gray-600">
-                    {section.text}
-                  </motion.p>
-                </motion.div>
-              </ParallaxSection>
-            ))}
+      {/* SECTION 2: Ingredient Map (Interactive) */}
+      <IngredientMap />
+
+      {/* SECTION 3: The Lab (Science & Transparency Placeholder) */}
+      <section className="relative py-32 bg-midnight-light/50 border-t border-glass-border">
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <motion.div
+              initial={{ scale: 0.8, opacity: 0 }}
+              whileInView={{ scale: 1, opacity: 1 }}
+              viewport={{ once: true }}
+              className="w-20 h-20 mx-auto bg-neon-pink/10 rounded-full flex items-center justify-center mb-8 neon-border"
+            >
+              <Microscope className="text-neon-pink w-10 h-10" />
+            </motion.div>
+
+            <h2 className="font-display text-5xl md:text-7xl mb-6">Лаборатория</h2>
+            <p className="text-xl text-gray-400 mb-12">
+              Мы верим в радикальную прозрачность. <br/>
+              Каждая формула — это баланс природы и биотехнологий.
+            </p>
+
+            {/* Placeholder for Glassmorphism Cards */}
+            <div className="grid md:grid-cols-3 gap-6 opacity-50 blur-[2px] hover:blur-0 transition-all duration-500 cursor-not-allowed">
+              {[1, 2, 3].map((i) => (
+                <div key={i} className="glass p-8 rounded-2xl h-64 flex flex-col items-center justify-center border border-dashed border-white/20">
+                  <span className="text-4xl mb-4">🧪</span>
+                  <span className="font-mono text-sm text-white/40">FORMULA_COMPONENT_{i}</span>
+                </div>
+              ))}
+            </div>
+            <div className="mt-8">
+               <span className="inline-block px-4 py-2 bg-neon-pink/20 text-neon-pink rounded-full text-xs tracking-widest border border-neon-pink">
+                 COMING SOON
+               </span>
+            </div>
           </div>
         </div>
-      </div>
+      </section>
 
-
-      {/* CTA Section */}
-      <section className="py-20 text-center p-4">
-        <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.5 }}
-            variants={containerVariants}
-        >
-            <motion.h2 variants={itemVariants} className="font-display text-4xl md:text-5xl font-bold mb-4">Готовы творить?</motion.h2>
-            <motion.p variants={itemVariants} className="text-xl text-gray-600 mb-8">
-            Ознакомьтесь с нашим каталогом и выберите <br/> идеальные инструменты для ваших шедевров.
-            </motion.p>
-            <motion.div variants={itemVariants}>
-                <Link href="/shop" className="bg-avenue-pink text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-pink-700 transition-colors">
-                    Перейти в каталог
-                </Link>
+      {/* SECTION 4: Sustainability (Visualization Placeholder) */}
+      <section className="relative py-32 bg-midnight">
+        <div className="container mx-auto px-4 text-center">
+             <motion.div
+              initial={{ rotate: -180, opacity: 0 }}
+              whileInView={{ rotate: 0, opacity: 1 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }}
+              className="w-20 h-20 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-8 border border-green-500/30"
+            >
+              <Recycle className="text-green-400 w-10 h-10" />
             </motion.div>
-        </motion.div>
+
+            <h2 className="font-display text-5xl md:text-7xl mb-6">Устойчивое развитие</h2>
+
+            <div className="relative max-w-2xl mx-auto h-96 flex items-center justify-center border border-white/10 rounded-3xl bg-midnight-light mt-12 overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center">
+                    <p className="text-center text-gray-500 font-mono text-sm p-8">
+                        [3D EXPLODED VIEW PLACEHOLDER]<br/><br/>
+                        Здесь будет интерактивная схема разбора флакона<br/>
+                        на перерабатываемые компоненты.
+                    </p>
+                </div>
+                {/* Abstract graphic */}
+                <svg className="absolute w-full h-full opacity-20 animate-[spin_10s_linear_infinite]" viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="5 5" />
+                    <circle cx="50" cy="50" r="30" stroke="currentColor" strokeWidth="1" fill="none" />
+                </svg>
+            </div>
+        </div>
       </section>
     </div>
   );
