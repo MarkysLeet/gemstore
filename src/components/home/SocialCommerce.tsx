@@ -18,10 +18,10 @@ export function SocialCommerce() {
   const { scrollXProgress } = useScroll({ container: ref });
 
   return (
-    <section className="py-24 bg-midnight-light border-y border-glass-border">
+    <section className="py-24 bg-secondary/30 border-y border-glass-border">
       <div className="container mx-auto px-6 mb-10">
         <h2 className="font-display text-3xl text-foreground mb-2">Inspiration Feed</h2>
-        <p className="text-gray-400">Shop looks from top masters</p>
+        <p className="text-muted-foreground">Shop looks from top masters</p>
       </div>
 
       {/* Horizontal Scroll Container */}

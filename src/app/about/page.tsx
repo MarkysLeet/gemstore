@@ -7,8 +7,8 @@ import { Microscope, Recycle } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="bg-midnight min-h-screen text-foreground overflow-hidden pt-20">
-      {/* Added pt-20 to prevent header overlap on the light theme hero */}
+    <div className="bg-background min-h-screen text-foreground overflow-hidden pt-32">
+      {/* Added pt-32 to prevent header overlap on the light theme hero */}
 
       {/* SECTION 1: Manifesto (Hero) */}
       <Manifesto />

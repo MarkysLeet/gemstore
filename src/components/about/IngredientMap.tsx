@@ -52,7 +52,7 @@ export function IngredientMap() {
   const [activeId, setActiveId] = useState<string | null>(null);
 
   return (
-    <section className="relative w-full py-20 bg-midnight overflow-hidden min-h-[80vh] flex flex-col items-center">
+    <section className="relative w-full py-20 bg-background overflow-hidden min-h-[80vh] flex flex-col items-center">
       <div className="container mx-auto px-4 z-10">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
@@ -83,7 +83,7 @@ export function IngredientMap() {
 
 function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setActiveId: (id: string | null) => void }) {
   return (
-    <div className="relative w-full aspect-[16/9] bg-midnight-light/30 rounded-3xl border border-glass-border overflow-hidden">
+    <div className="relative w-full aspect-[16/9] bg-secondary/30 rounded-3xl border border-glass-border overflow-hidden">
       {/* Abstract World Map SVG */}
       <svg className="absolute inset-0 w-full h-full text-foreground/10" viewBox="0 0 100 60" fill="currentColor">
          {/* Simplified Continents Paths */}
@@ -126,7 +126,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
 
           <motion.span
              className="absolute top-8 left-1/2 -translate-x-1/2 text-xs font-mono text-foreground/60 tracking-widest whitespace-nowrap pointer-events-none"
-             animate={{ opacity: activeId === ing.id ? 1 : 0.5, color: activeId === ing.id ? '#FF10F0' : '#FFF' }}
+             animate={{ opacity: activeId === ing.id ? 1 : 0.5, color: activeId === ing.id ? '#FF10F0' : '#1A1A1A' }}
           >
             {ing.origin.toUpperCase()}
           </motion.span>
@@ -169,7 +169,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
                         {INGREDIENTS.find(i => i.id === activeId)?.origin}
                     </p>
 
-                    <p className="text-gray-300 leading-relaxed mb-6">
+                    <p className="text-gray-600 leading-relaxed mb-6">
                         {INGREDIENTS.find(i => i.id === activeId)?.desc}
                     </p>
 

@@ -22,7 +22,7 @@ export function AIAdvisorSection() {
   };
 
   return (
-    <section className="relative w-full h-[70vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden bg-midnight">
+    <section className="relative w-full h-[70vh] min-h-[500px] flex flex-col items-center justify-center overflow-hidden bg-background">
       {/* Background Glow/Sphere */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <motion.div
@@ -65,7 +65,7 @@ export function AIAdvisorSection() {
 
             <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-bold text-foreground mb-6 leading-tight">
               Start a <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gray-400 hover:font-black transition-all duration-300 cursor-default">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-foreground via-foreground to-muted-foreground hover:font-black transition-all duration-300 cursor-default">
                 Conversation
               </span>
             </h1>

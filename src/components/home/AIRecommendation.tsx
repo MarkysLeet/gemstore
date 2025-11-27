@@ -5,7 +5,7 @@ import { Sparkles, ScanFace } from "lucide-react";
 
 export function AIRecommendation() {
   return (
-    <section className="py-24 bg-midnight relative overflow-hidden">
+    <section className="py-24 bg-background relative overflow-hidden">
       <div className="container mx-auto px-6">
         <div className="relative rounded-3xl overflow-hidden glass-strong border border-glass-border p-8 md:p-16 flex flex-col md:flex-row items-center gap-12">
 
@@ -21,11 +21,11 @@ export function AIRecommendation() {
 
             <h2 className="font-display text-4xl md:text-5xl text-foreground mb-6">
               Personalized <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-white">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-neon-pink to-purple-600">
                 Skin Analysis
               </span>
             </h2>
-            <p className="text-gray-400 text-lg mb-8 max-w-lg">
+            <p className="text-muted-foreground text-lg mb-8 max-w-lg">
               Our AI algorithm analyzes your skin type and nail condition to recommend the perfect care routine and products tailored just for you.
             </p>
 

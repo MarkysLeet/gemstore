@@ -32,7 +32,7 @@ export function MinimalContactForm() {
   };
 
   return (
-    <section className="py-20 bg-midnight relative">
+    <section className="py-20 bg-background relative">
       <div className="container mx-auto px-4 max-w-2xl">
         <div className="text-center mb-12">
             <h2 className="font-display text-3xl text-foreground mb-4">Классическая связь</h2>
