@@ -26,8 +26,8 @@ const Sheet = ({ open, onOpenChange, children }: SheetProps) => {
           />
           {React.Children.map(children, (child) => {
             if (React.isValidElement(child)) {
-              return React.cloneElement(child, {
-                // @ts-ignore
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
+              return React.cloneElement(child as React.ReactElement<any>, {
                 onClose: () => onOpenChange(false),
               });
             }
@@ -39,15 +39,15 @@ const Sheet = ({ open, onOpenChange, children }: SheetProps) => {
   );
 };
 
-interface SheetTriggerProps {
+interface SheetTriggerProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   asChild?: boolean;
 }
 
 const SheetTrigger = React.forwardRef<HTMLButtonElement, SheetTriggerProps>(({ children, asChild = false, ...props }, ref) => {
   if (asChild && React.isValidElement(children)) {
-    return React.cloneElement(children, {
-      // @ts-ignore
+     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return React.cloneElement(children as React.ReactElement<any>, {
       ref: ref,
       ...props,
     });
