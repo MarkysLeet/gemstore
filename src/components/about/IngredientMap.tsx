@@ -57,7 +57,7 @@ export function IngredientMap() {
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          className="font-display text-4xl md:text-5xl text-center mb-12 text-white"
+          className="font-display text-4xl md:text-5xl text-center mb-12 text-foreground"
         >
           Карта Ингредиентов <span className="text-neon-pink">.</span>
         </motion.h2>
@@ -85,7 +85,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
   return (
     <div className="relative w-full aspect-[16/9] bg-midnight-light/30 rounded-3xl border border-glass-border overflow-hidden">
       {/* Abstract World Map SVG */}
-      <svg className="absolute inset-0 w-full h-full text-white/10" viewBox="0 0 100 60" fill="currentColor">
+      <svg className="absolute inset-0 w-full h-full text-foreground/10" viewBox="0 0 100 60" fill="currentColor">
          {/* Simplified Continents Paths */}
          <path d="M10,10 L30,10 L35,25 L25,35 L5,20 Z" />
          <path d="M25,37 L38,37 L35,55 L25,50 Z" />
@@ -125,7 +125,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
           </motion.button>
 
           <motion.span
-             className="absolute top-8 left-1/2 -translate-x-1/2 text-xs font-mono text-white/60 tracking-widest whitespace-nowrap pointer-events-none"
+             className="absolute top-8 left-1/2 -translate-x-1/2 text-xs font-mono text-foreground/60 tracking-widest whitespace-nowrap pointer-events-none"
              animate={{ opacity: activeId === ing.id ? 1 : 0.5, color: activeId === ing.id ? '#FF10F0' : '#FFF' }}
           >
             {ing.origin.toUpperCase()}
@@ -144,7 +144,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
           >
             <button
                 onClick={() => setActiveId(null)}
-                className="self-end text-white/50 hover:text-white"
+                className="self-end text-foreground/50 hover:text-foreground"
             >
                 <X size={24} />
             </button>
@@ -161,7 +161,7 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
                          <div className="absolute inset-0 bg-gradient-to-t from-midnight/80 to-transparent" />
                     </div>
 
-                    <h3 className="font-display text-3xl text-white mb-2">
+                    <h3 className="font-display text-3xl text-foreground mb-2">
                         {INGREDIENTS.find(i => i.id === activeId)?.name}
                     </h3>
                     <p className="text-neon-pink text-sm font-mono mb-4 flex items-center gap-2">
@@ -173,9 +173,9 @@ function DesktopMap({ activeId, setActiveId }: { activeId: string | null, setAct
                         {INGREDIENTS.find(i => i.id === activeId)?.desc}
                     </p>
 
-                    <div className="mt-auto pt-4 border-t border-white/10">
-                        <span className="text-xs text-white/40 uppercase tracking-widest">Ethics</span>
-                        <p className="text-sm text-white/80">{INGREDIENTS.find(i => i.id === activeId)?.ethics}</p>
+                    <div className="mt-auto pt-4 border-t border-foreground/10">
+                        <span className="text-xs text-foreground/40 uppercase tracking-widest">Ethics</span>
+                        <p className="text-sm text-foreground/80">{INGREDIENTS.find(i => i.id === activeId)?.ethics}</p>
                     </div>
                 </div>
             )}
@@ -209,10 +209,10 @@ function MobileCarousel({ activeId, setActiveId }: { activeId: string | null, se
                                     </span>
                                 </div>
 
-                                <h3 className="font-display text-3xl text-white mb-2">{ing.name}</h3>
+                                <h3 className="font-display text-3xl text-foreground mb-2">{ing.name}</h3>
                                 <p className="text-gray-400 text-sm mb-4">{ing.desc}</p>
 
-                                <div className="flex items-center gap-2 text-xs text-white/60">
+                                <div className="flex items-center gap-2 text-xs text-foreground/60">
                                     <MapPin size={12} className="text-neon-pink" />
                                     {ing.origin} — {ing.ethics}
                                 </div>
@@ -222,7 +222,7 @@ function MobileCarousel({ activeId, setActiveId }: { activeId: string | null, se
                 ))}
             </div>
 
-            <div className="text-center text-white/30 text-sm animate-pulse">
+            <div className="text-center text-foreground/30 text-sm animate-pulse">
                 ← Листайте для просмотра →
             </div>
         </div>

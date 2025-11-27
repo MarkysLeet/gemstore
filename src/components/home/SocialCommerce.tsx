@@ -20,7 +20,7 @@ export function SocialCommerce() {
   return (
     <section className="py-24 bg-midnight-light border-y border-glass-border">
       <div className="container mx-auto px-6 mb-10">
-        <h2 className="font-display text-3xl text-white mb-2">Inspiration Feed</h2>
+        <h2 className="font-display text-3xl text-foreground mb-2">Inspiration Feed</h2>
         <p className="text-gray-400">Shop looks from top masters</p>
       </div>
 

@@ -7,7 +7,9 @@ import { Microscope, Recycle } from "lucide-react";
 
 export default function AboutPage() {
   return (
-    <div className="bg-midnight min-h-screen text-white overflow-hidden">
+    <div className="bg-midnight min-h-screen text-foreground overflow-hidden pt-20">
+      {/* Added pt-20 to prevent header overlap on the light theme hero */}
+
       {/* SECTION 1: Manifesto (Hero) */}
       <Manifesto />
 
@@ -27,8 +29,8 @@ export default function AboutPage() {
               <Microscope className="text-neon-pink w-10 h-10" />
             </motion.div>
 
-            <h2 className="font-display text-5xl md:text-7xl mb-6">Лаборатория</h2>
-            <p className="text-xl text-gray-400 mb-12">
+            <h2 className="font-display text-5xl md:text-7xl mb-6 text-foreground">Лаборатория</h2>
+            <p className="text-xl text-gray-500 mb-12">
               Мы верим в радикальную прозрачность. <br/>
               Каждая формула — это баланс природы и биотехнологий.
             </p>
@@ -36,9 +38,9 @@ export default function AboutPage() {
             {/* Placeholder for Glassmorphism Cards */}
             <div className="grid md:grid-cols-3 gap-6 opacity-50 blur-[2px] hover:blur-0 transition-all duration-500 cursor-not-allowed">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="glass p-8 rounded-2xl h-64 flex flex-col items-center justify-center border border-dashed border-white/20">
+                <div key={i} className="glass p-8 rounded-2xl h-64 flex flex-col items-center justify-center border border-dashed border-foreground/20">
                   <span className="text-4xl mb-4">🧪</span>
-                  <span className="font-mono text-sm text-white/40">FORMULA_COMPONENT_{i}</span>
+                  <span className="font-mono text-sm text-foreground/40">FORMULA_COMPONENT_{i}</span>
                 </div>
               ))}
             </div>
@@ -61,12 +63,12 @@ export default function AboutPage() {
               viewport={{ once: true }}
               className="w-20 h-20 mx-auto bg-green-500/10 rounded-full flex items-center justify-center mb-8 border border-green-500/30"
             >
-              <Recycle className="text-green-400 w-10 h-10" />
+              <Recycle className="text-green-600 w-10 h-10" />
             </motion.div>
 
-            <h2 className="font-display text-5xl md:text-7xl mb-6">Устойчивое развитие</h2>
+            <h2 className="font-display text-5xl md:text-7xl mb-6 text-foreground">Устойчивое развитие</h2>
 
-            <div className="relative max-w-2xl mx-auto h-96 flex items-center justify-center border border-white/10 rounded-3xl bg-midnight-light mt-12 overflow-hidden">
+            <div className="relative max-w-2xl mx-auto h-96 flex items-center justify-center border border-foreground/10 rounded-3xl bg-midnight-light mt-12 overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center">
                     <p className="text-center text-gray-500 font-mono text-sm p-8">
                         [3D EXPLODED VIEW PLACEHOLDER]<br/><br/>

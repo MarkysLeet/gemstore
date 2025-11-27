@@ -30,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/product/${product.id}`} className="block group relative">
       <div
-        className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-midnight-light border border-white/5"
+        className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-midnight-light border border-foreground/5"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
@@ -88,10 +88,10 @@ export function ProductCard({ product }: { product: Product }) {
               borderRadius: ["50%", "30%", "40%", "50%"],
               backgroundColor: "#10B981" // Success Green temporarily
             } : {
-              backgroundColor: "#FF10F0"
+              backgroundColor: "var(--color-neon-pink)"
             }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-[0_0_15px_rgba(255,16,240,0.5)] backdrop-blur-sm"
+            className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-[0_0_15px_rgba(224,64,171,0.5)] backdrop-blur-sm"
           >
             {isAdding ? (
               <motion.div
@@ -107,12 +107,12 @@ export function ProductCard({ product }: { product: Product }) {
       </div>
 
       <div className="mt-4 px-1">
-        <h3 className="font-display text-lg text-white group-hover:text-neon-pink transition-colors truncate">
+        <h3 className="font-display text-lg text-foreground group-hover:text-neon-pink transition-colors truncate">
           {product.name}
         </h3>
         <div className="flex justify-between items-center mt-1">
           <p className="text-gray-400 text-sm">{product.category}</p>
-          <span className="font-medium text-white">{product.price.toLocaleString()} ₽</span>
+          <span className="font-medium text-foreground">{product.price.toLocaleString()} ₽</span>
         </div>
       </div>
     </Link>

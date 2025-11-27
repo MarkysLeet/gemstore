@@ -52,7 +52,7 @@ export function ProductGrid() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="font-display text-4xl md:text-5xl text-white"
+            className="font-display text-4xl md:text-5xl text-foreground"
           >
             New <span className="text-neon-pink italic">Arrivals</span>
           </motion.h2>

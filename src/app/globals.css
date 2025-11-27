@@ -1,13 +1,16 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-midnight: #050505;
-  --color-midnight-light: #1A1A1A;
-  --color-neon-pink: #FF10F0;
-  --color-neon-pink-dim: #D400C0;
-  --color-glass-border: rgba(255, 255, 255, 0.1);
-  --color-glass-bg: rgba(255, 255, 255, 0.05);
+  /* Colors - Light Theme Rebrand */
+  /* Renaming 'midnight' variables to their new Light equivalents to maintain code compatibility */
+  --color-midnight: #FAF9F6; /* Cream / Off-White */
+  --color-midnight-light: #F0F0E8; /* Slightly darker cream for cards/contrast */
+
+  --color-neon-pink: #E040AB; /* Softer Luxurious Pink */
+  --color-neon-pink-dim: #C2185B; /* Dimmer Pink */
+
+  --color-glass-border: rgba(0, 0, 0, 0.08);
+  --color-glass-bg: rgba(255, 255, 255, 0.6);
 
   /* Typography */
   --font-display: 'Playfair Display', serif;
@@ -18,17 +21,17 @@
 
   @keyframes glow {
     from {
-      box-shadow: 0 0 10px #FF10F0, 0 0 20px #FF10F0;
+      box-shadow: 0 0 10px #E040AB, 0 0 20px #E040AB;
     }
     to {
-      box-shadow: 0 0 20px #FF10F0, 0 0 30px #FF10F0;
+      box-shadow: 0 0 20px #E040AB, 0 0 30px #E040AB;
     }
   }
 }
 
 :root {
-  --background: #050505;
-  --foreground: #FFFFFF;
+  --background: #FAF9F6;
+  --foreground: #1A1A1A; /* Dark Charcoal */
 }
 
 body {
@@ -46,14 +49,14 @@ body {
 }
 
 .glass-strong {
-  background: rgba(10, 10, 10, 0.7);
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--color-glass-border);
 }
 
 .text-glow {
-  text-shadow: 0 0 10px rgba(255, 16, 240, 0.5);
+  text-shadow: 0 0 10px rgba(224, 64, 171, 0.3);
 }
 
 .neon-border {
@@ -68,7 +71,7 @@ body {
   background: var(--color-midnight);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-midnight-light);
+  background: #D1D1C7;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
