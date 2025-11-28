@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Plus, Check } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import { twMerge } from "tailwind-merge";
 
 export interface Product {
   id: string;
@@ -17,7 +18,12 @@ export interface Product {
   texture?: string; // Texture smear image
 }
 
-export function ProductCard({ product }: { product: Product }) {
+interface ProductCardProps {
+  product: Product;
+  className?: string;
+}
+
+export function ProductCard({ product, className }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const { items, addItem, removeItem } = useCart();
 
@@ -36,7 +42,10 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/product/${product.id}`} className="block group relative">
       <div
-        className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-midnight-light border border-foreground/5 shadow-md hover:shadow-lg transition-shadow duration-300"
+        className={twMerge(
+          "relative aspect-[3/4] rounded-2xl overflow-hidden bg-midnight-light border border-foreground/5 shadow-md hover:shadow-lg transition-shadow duration-300",
+          className
+        )}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useProducts } from "@/context/ProductContext";
+import { ProductCard } from "@/components/product/ProductCard";
 import FilterSidebar from "@/components/shop/FilterSidebar";
 import { Menu } from 'lucide-react';
 import {
@@ -97,34 +98,7 @@ function ShopContent() {
                     </div>
                 ) : (
                     filteredProducts.map((product) => (
-                    <div key={product.id} className="group relative">
-                        <Link href={`/product/${product.id}`} className="block bg-white rounded-lg overflow-hidden border border-gray-100 shadow-sm hover:shadow-lg transition-shadow duration-300">
-                        <div className="relative aspect-square overflow-hidden">
-                            <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            />
-                        </div>
-                        <div className="p-4">
-                            <h3 className="text-sm font-semibold text-gray-800 mb-1 truncate group-hover:text-avenue-pink transition-colors">{product.name}</h3>
-                            <p className="text-lg font-bold text-gray-900">{product.price} ₽</p>
-                        </div>
-                        </Link>
-                        <div className="absolute bottom-4 right-4 z-10">
-                        <button
-                            onClick={(e) => {
-                            e.stopPropagation();
-                            alert(`Добавлено в корзину: ${product.name}`);
-                            // TODO: Implement actual add to cart functionality
-                            }}
-                            className="flex items-center justify-center w-10 h-10 bg-avenue-pink text-foreground rounded-full shadow-lg transform translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 hover:bg-pink-700"
-                        >
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-                        </button>
-                        </div>
-                    </div>
+                      <ProductCard key={product.id} product={product} className="aspect-square bg-white" />
                     ))
                 )}
             </div>
