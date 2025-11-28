@@ -13,7 +13,7 @@ export function HeroSection() {
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 bg-black/50 z-10" /> {/* Dark overlay for text readability */}
 
-        <div className="absolute inset-0 md:-top-[20%] md:-bottom-[20%] md:-left-[20%] md:-right-[20%] md:w-[140%] md:h-[140%] w-[300%] h-full -left-[100%]">
+        <div className="absolute inset-0 md:-top-[20%] md:-bottom-[20%] md:-left-[20%] md:-right-[20%] md:w-[140%] md:h-[140%] w-[500%] h-full -left-[200%] md:-left-[20%] pointer-events-none">
           <iframe
             src="https://www.youtube.com/embed/3jirvasSGD4?autoplay=1&mute=1&controls=0&loop=1&playlist=3jirvasSGD4&playsinline=1&showinfo=0&rel=0&enablejsapi=1&disablekb=1&iv_load_policy=3&modestbranding=1"
             title="Hero Video"
