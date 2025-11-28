@@ -9,7 +9,7 @@ import { useCart } from "@/context/CartContext";
 
 export function BottomNav() {
   const pathname = usePathname();
-  const { items } = useCart();
+  const { items, setIsOpen } = useCart();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
   const cartControls = useAnimation();
   const isFirstRender = useRef(true);
@@ -32,10 +32,10 @@ export function BottomNav() {
   }, [cartCount, cartControls]);
 
   const navItems = [
-    { icon: Home, label: "Главная", href: "/" },
-    { icon: Search, label: "Поиск", href: "/search" }, // Assuming search page or modal trigger
-    { icon: ShoppingBag, label: "Корзина", href: "/cart", badge: cartCount },
-    { icon: User, label: "Профиль", href: "/profile" },
+    { icon: Home, label: "Главная", href: "/", type: "link" },
+    { icon: Search, label: "Поиск", href: "/search", type: "link" },
+    { icon: ShoppingBag, label: "Корзина", action: () => setIsOpen(true), badge: cartCount, type: "button" },
+    { icon: User, label: "Профиль", href: "/profile", type: "link" },
   ];
 
   return (
@@ -43,16 +43,11 @@ export function BottomNav() {
       {/* Glassmorphism Background */}
       <div className="glass-strong pb-safe-area">
         <div className="flex justify-around items-center h-16 px-2">
-          {navItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`relative flex flex-col items-center justify-center w-full h-full transition-colors ${
-                  isActive ? "text-neon-pink" : "text-gray-600 hover:text-foreground"
-                }`}
-              >
+          {navItems.map((item, index) => {
+            const isActive = item.type === 'link' ? pathname === item.href : false; // Buttons don't have "active" route state in the same way
+
+            const content = (
+              <>
                 <motion.div
                   className="relative p-1"
                   animate={item.label === "Корзина" ? cartControls : {}}
@@ -76,6 +71,30 @@ export function BottomNav() {
                     className="absolute bottom-0 w-8 h-1 rounded-t-full bg-neon-pink shadow-[0_-2px_10px_#FF10F0]"
                   />
                 )}
+              </>
+            );
+
+            if (item.type === 'button') {
+              return (
+                <button
+                  key={index}
+                  onClick={item.action}
+                  className={`relative flex flex-col items-center justify-center w-full h-full transition-colors text-gray-600 hover:text-foreground`}
+                >
+                  {content}
+                </button>
+              );
+            }
+
+            return (
+              <Link
+                key={index}
+                href={item.href!}
+                className={`relative flex flex-col items-center justify-center w-full h-full transition-colors ${
+                  isActive ? "text-neon-pink" : "text-gray-600 hover:text-foreground"
+                }`}
+              >
+                {content}
               </Link>
             );
           })}
