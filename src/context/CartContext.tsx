@@ -14,6 +14,11 @@ export interface CartItem extends Product {
   quantity: number;
 }
 
+interface AddToCartAnimState {
+  active: boolean;
+  startPos: DOMRect | null;
+}
+
 interface CartContextType {
   items: CartItem[];
   addItem: (product: Product) => void;
@@ -24,6 +29,13 @@ interface CartContextType {
   totalItems: number;
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
+
+  // Animation State
+  cartShake: boolean;
+  triggerShake: () => void;
+  addToCartAnim: AddToCartAnimState;
+  startAddToCartAnimation: (rect: DOMRect) => void;
+  resetAddToCartAnimation: () => void;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -31,6 +43,13 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+
+  // Animation States
+  const [cartShake, setCartShake] = useState(false);
+  const [addToCartAnim, setAddToCartAnim] = useState<AddToCartAnimState>({
+    active: false,
+    startPos: null,
+  });
 
   // Load from local storage on mount
   useEffect(() => {
@@ -63,7 +82,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       }
       return [...prev, { ...product, quantity: 1 }];
     });
-    setIsOpen(true);
+    // Note: We removed setIsOpen(true) here to prevent the cart drawer from opening
+    // immediately, allowing the "flying orb" animation to play out first.
+    // The user can open it manually or we can open it after animation if requested.
+    // For this task, we focus on the Orb animation.
   };
 
   const removeItem = (id: string) => {
@@ -78,6 +100,20 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   };
 
   const clearCart = () => setItems([]);
+
+  // Animation Handlers
+  const triggerShake = () => {
+    setCartShake(true);
+    setTimeout(() => setCartShake(false), 600); // Reset after animation duration
+  };
+
+  const startAddToCartAnimation = (rect: DOMRect) => {
+    setAddToCartAnim({ active: true, startPos: rect });
+  };
+
+  const resetAddToCartAnimation = () => {
+    setAddToCartAnim({ active: false, startPos: null });
+  };
 
   const totalPrice = items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
@@ -94,6 +130,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
         totalItems,
         isOpen,
         setIsOpen,
+        cartShake,
+        triggerShake,
+        addToCartAnim,
+        startAddToCartAnimation,
+        resetAddToCartAnimation,
       }}
     >
       {children}
