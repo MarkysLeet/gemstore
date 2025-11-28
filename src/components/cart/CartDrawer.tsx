@@ -5,9 +5,27 @@ import { X, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 export function CartDrawer() {
   const { items, removeItem, updateQuantity, totalPrice, isOpen, setIsOpen } = useCart();
+  const [isMobile, setIsMobile] = useState(false);
+  const FREE_SHIPPING_THRESHOLD = 5000;
+  const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - totalPrice);
+  const progress = Math.min((totalPrice / FREE_SHIPPING_THRESHOLD) * 100, 100);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 640);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
+
+  const variants = {
+    hidden: isMobile ? { y: "100%" } : { x: "100%" },
+    visible: isMobile ? { y: 0 } : { x: 0 },
+    exit: isMobile ? { y: "100%" } : { x: "100%" },
+  };
 
   return (
     <AnimatePresence>
@@ -19,77 +37,118 @@ export function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/60 z-[60] backdrop-blur-md"
+            className="fixed inset-0 bg-black/40 z-[60] backdrop-blur-sm"
           />
 
-          {/* Drawer */}
+          {/* Drawer Container */}
           <motion.div
-            initial={{ x: "100%" }}
-            animate={{ x: 0 }}
-            exit={{ x: "100%" }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed top-0 right-0 h-full w-full sm:w-[450px] bg-midnight border-l border-glass-border z-[70] shadow-2xl flex flex-col"
+            variants={variants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            className={`
+              fixed z-[70] shadow-2xl flex flex-col
+              bg-white/80 backdrop-blur-2xl border-white/20
+              ${isMobile
+                ? "bottom-0 left-0 w-full h-[85vh] rounded-t-3xl border-t"
+                : "top-0 right-0 h-full w-full sm:w-[480px] border-l"
+              }
+            `}
           >
-            <div className="p-6 flex justify-between items-center border-b border-glass-border">
-              <h2 className="text-xl font-display font-bold flex items-center gap-2 text-foreground">
-                <ShoppingBag className="w-5 h-5 text-neon-pink" /> Корзина
-              </h2>
-              <button onClick={() => setIsOpen(false)} className="text-gray-400 hover:text-foreground transition-colors">
-                <X className="w-6 h-6" />
-              </button>
+            {/* Header & Gamification */}
+            <div className="pt-6 px-6 pb-2">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-xl font-serif font-bold flex items-center gap-2 text-[#1A1A1A]">
+                  <ShoppingBag className="w-5 h-5 text-neon-pink" /> Ваша корзина
+                </h2>
+                <button onClick={() => setIsOpen(false)} className="text-gray-500 hover:text-[#1A1A1A] transition-colors">
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+
+              {/* Free Shipping Progress */}
+              <div className="mb-2">
+                <div className="mb-2 text-sm text-[#1A1A1A]">
+                  {remaining > 0 ? (
+                    <>
+                      Вам не хватает <span className="font-bold text-neon-pink">{remaining} ₽</span> до бесплатной доставки и подарка 🎁
+                    </>
+                  ) : (
+                    <span className="font-bold text-neon-pink">Поздравляем! Бесплатная доставка и подарок активированы 🎉</span>
+                  )}
+                </div>
+                <div className="h-1 w-full bg-black/5 rounded-full overflow-hidden">
+                  <motion.div
+                    className="h-full bg-neon-pink shadow-[0_0_10px_#E040AB]"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                </div>
+              </div>
             </div>
 
+            {/* Content Placeholder (Existing Logic with temp dark text adjustments) */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {items.length === 0 ? (
-                <div className="h-full flex flex-col items-center justify-center text-center text-gray-400">
-                  <ShoppingBag className="w-16 h-16 mb-4 text-gray-600" />
-                  <p className="text-lg font-medium mb-2 text-foreground">Ваша корзина пуста</p>
-                  <p className="text-sm mb-6">Добавьте товары из каталога, чтобы сделать заказ</p>
-                  <button
+                <div className="h-full flex flex-col items-center justify-center text-center text-gray-500">
+                  <ShoppingBag className="w-16 h-16 mb-4 text-gray-300/50" />
+                  <p className="text-xl font-serif font-bold mb-2 text-[#1A1A1A]">
+                    Ваша корзина пуста, <br/> но ваша кожа хочет пить.
+                  </p>
+                  <p className="text-sm mb-8 text-gray-500 max-w-[250px] mx-auto">
+                    Загляните в каталог, чтобы найти идеальный уход для себя.
+                  </p>
+                  <Link
+                    href="/shop"
                     onClick={() => setIsOpen(false)}
-                    className="text-neon-pink hover:text-foreground transition-colors hover:underline"
+                    className="px-8 py-3 bg-[#1A1A1A] text-white rounded-full font-medium hover:bg-neon-pink transition-colors shadow-lg"
                   >
                     Перейти в каталог
-                  </button>
+                  </Link>
                 </div>
               ) : (
                 items.map((item) => (
-                  <div key={item.id} className="flex gap-4">
-                    <div className="relative w-20 h-20 rounded-lg overflow-hidden border border-glass-border bg-gray-900 shrink-0">
+                  <div key={item.id} className="flex gap-5 items-start group">
+                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-black/5 bg-gray-50 shrink-0 shadow-sm">
                       <Image
                         src={item.image}
                         alt={item.name}
                         fill
-                        className="object-cover"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
-                    <div className="flex-1">
-                      <div className="flex justify-between items-start mb-1">
-                        <h3 className="font-medium text-sm pr-4 line-clamp-2 text-foreground">{item.name}</h3>
-                        <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500">
+                    <div className="flex-1 flex flex-col justify-between h-24 py-1">
+                      <div className="flex justify-between items-start gap-2">
+                        <h3 className="font-serif text-[#1A1A1A] leading-tight line-clamp-2 text-sm">
+                          {item.name}
+                        </h3>
+                        <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500 transition-colors">
                           <X className="w-4 h-4" />
                         </button>
                       </div>
-                      <p className="text-xs text-gray-400 mb-3">{item.price} ₽</p>
-                      <div className="flex items-center gap-3">
-                         <div className="flex items-center border border-glass-border rounded-lg bg-black/20">
-                           <button
-                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                             className="p-1 px-2 hover:bg-black/10 text-gray-400 hover:text-foreground"
-                           >
-                             <Minus className="w-3 h-3" />
-                           </button>
-                           <span className="text-sm font-medium w-6 text-center text-foreground">{item.quantity}</span>
-                           <button
-                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                             className="p-1 px-2 hover:bg-black/10 text-gray-400 hover:text-foreground"
-                           >
-                             <Plus className="w-3 h-3" />
-                           </button>
-                         </div>
-                         <div className="text-sm font-bold ml-auto text-neon-pink">
-                           {item.price * item.quantity} ₽
-                         </div>
+
+                      <div className="flex justify-between items-end mt-auto">
+                        <div className="text-neon-pink font-bold text-sm">
+                          {item.price} ₽
+                        </div>
+
+                        <div className="flex items-center bg-white/60 border border-black/5 rounded-full px-1 shadow-sm backdrop-blur-sm">
+                          <button
+                            onClick={() => updateQuantity(item.id, Math.max(1, item.quantity - 1))}
+                            className="p-1.5 hover:bg-black/5 rounded-full text-gray-500 hover:text-[#1A1A1A] transition-colors"
+                          >
+                            <Minus className="w-3 h-3" />
+                          </button>
+                          <span className="w-6 text-center text-sm font-medium text-[#1A1A1A]">{item.quantity}</span>
+                          <button
+                            onClick={() => updateQuantity(item.id, Math.min(10, item.quantity + 1))}
+                            className="p-1.5 hover:bg-black/5 rounded-full text-gray-500 hover:text-[#1A1A1A] transition-colors"
+                          >
+                            <Plus className="w-3 h-3" />
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -98,17 +157,20 @@ export function CartDrawer() {
             </div>
 
             {items.length > 0 && (
-              <div className="p-6 border-t border-glass-border bg-black/20">
-                <div className="flex justify-between items-center mb-6">
-                  <span className="text-gray-400">Итого:</span>
-                  <span className="text-2xl font-display font-bold text-foreground">{totalPrice} ₽</span>
+              <div className="p-6 pt-2 bg-gradient-to-t from-white/90 to-transparent">
+                <div className="flex justify-between items-end mb-4 px-1">
+                  <span className="text-gray-500 font-medium">Итого:</span>
+                  <span className="text-3xl font-serif font-bold text-[#1A1A1A]">{totalPrice} ₽</span>
                 </div>
                 <Link
                   href="/checkout"
                   onClick={() => setIsOpen(false)}
-                  className="w-full bg-neon-pink text-white py-4 rounded-xl font-bold hover:bg-neon-pink/80 transition-colors flex items-center justify-center gap-2 shadow-[0_0_15px_#FF10F0]"
+                  className="group relative w-full overflow-hidden bg-gradient-to-r from-[#FF10F0] to-[#E040AB] text-white py-4 rounded-2xl font-bold transition-all hover:shadow-[0_0_25px_rgba(224,64,171,0.6)] hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
                 >
-                  Оформить заказ <ArrowRight className="w-4 h-4" />
+                  <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+                  <span className="relative flex items-center gap-2">
+                    Оформить заказ <ArrowRight className="w-5 h-5 animate-pulse" />
+                  </span>
                 </Link>
               </div>
             )}
