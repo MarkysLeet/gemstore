@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Plus, Check } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 export interface Product {
   id: string;
@@ -18,13 +19,18 @@ export interface Product {
 
 export function ProductCard({ product }: { product: Product }) {
   const [isHovered, setIsHovered] = useState(false);
-  const [isAdding, setIsAdding] = useState(false);
+  const { items, addItem, removeItem } = useCart();
+
+  const isInCart = items.some((item) => item.id === product.id);
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.preventDefault(); // Prevent navigation
-    setIsAdding(true);
-    setTimeout(() => setIsAdding(false), 1500);
-    // Logic to add to cart would go here
+
+    if (isInCart) {
+      removeItem(product.id);
+    } else {
+      addItem(product);
+    }
   };
 
   return (
@@ -83,25 +89,40 @@ export function ProductCard({ product }: { product: Product }) {
             onClick={handleAddToCart}
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
-            animate={isAdding ? {
+            animate={isInCart ? {
               scale: [1, 0.8, 1.2, 1],
               borderRadius: ["50%", "30%", "40%", "50%"],
-              backgroundColor: "#10B981" // Success Green temporarily
+              backgroundColor: "#10B981" // Success Green
             } : {
+              borderRadius: "50%",
               backgroundColor: "var(--color-neon-pink)"
             }}
             transition={{ type: "spring", stiffness: 300 }}
             className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-[0_0_15px_rgba(224,64,171,0.5)] backdrop-blur-sm"
           >
-            {isAdding ? (
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                className="w-2 h-2 bg-white rounded-full"
-              />
-            ) : (
-              <Plus className="w-6 h-6" />
-            )}
+            <AnimatePresence mode="wait">
+              {isInCart ? (
+                <motion.div
+                  key="check"
+                  initial={{ scale: 0, rotate: -45 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  exit={{ scale: 0, rotate: 45 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Check className="w-6 h-6" />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="plus"
+                  initial={{ scale: 0, rotate: 45 }}
+                  animate={{ scale: 1, rotate: 0 }}
+                  exit={{ scale: 0, rotate: -45 }}
+                  transition={{ duration: 0.2 }}
+                >
+                  <Plus className="w-6 h-6" />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </motion.button>
         </div>
       </div>
