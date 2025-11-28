@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Command } from "cmdk";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, ShoppingBag } from "lucide-react";
+import { Search, X, Plus } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import { PRODUCTS } from "@/lib/data";
 import { useCart } from "@/context/CartContext";
@@ -88,19 +88,19 @@ export function SearchModal() {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full md:w-[600px] h-[80vh] md:h-auto max-h-[85vh] md:rounded-2xl shadow-2xl overflow-hidden flex flex-col bg-white/90 border border-white/20"
+            className="relative w-full md:w-[600px] h-[80vh] md:h-auto max-h-[85vh] md:rounded-3xl shadow-2xl overflow-hidden flex flex-col bg-white/70 backdrop-blur-2xl border border-white/40"
             onClick={(e) => e.stopPropagation()}
           >
             <Command shouldFilter={false} className="flex flex-col h-full w-full bg-transparent">
               {/* Desktop: Input at Top */}
-              <div className="hidden md:flex items-center border-b border-gray-200/50 px-4 py-3 bg-white/40">
-                <Search className="w-5 h-5 text-gray-400 mr-3" />
+              <div className="hidden md:flex items-center border-b border-gray-200/50 px-6 py-4 bg-white/40 h-16">
+                <Search className="w-6 h-6 text-gray-800 mr-4" />
                 <Command.Input
                   autoFocus
                   placeholder="Поиск товаров..."
                   value={query}
                   onValueChange={setQuery}
-                  className="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-gray-400 text-foreground"
+                  className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground"
                 />
                 <button
                   onClick={closeSearch}
@@ -110,8 +110,8 @@ export function SearchModal() {
                 </button>
               </div>
 
-              {/* Results Area (Middle) */}
-              <div className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300">
+              {/* Results Area (Middle) - Mobile: Justify End (Bottom Anchored), Desktop: Block (Top Anchored) */}
+              <div className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block">
                 <Command.List>
                   {!query && (
                     <div className="p-4">
@@ -121,7 +121,7 @@ export function SearchModal() {
                           <button
                             key={tag.id}
                             onClick={() => handleTagClick(tag.query)}
-                            className="px-4 py-2 rounded-full bg-white/60 border border-white/40 hover:bg-neon-pink/10 hover:border-neon-pink/30 hover:text-neon-pink transition-all text-sm font-medium text-gray-700 shadow-sm backdrop-blur-sm"
+                            className="px-4 py-2 rounded-full bg-stone-100/50 ring-1 ring-white/20 hover:bg-pink-50 hover:text-pink-600 transition-all text-sm font-medium text-gray-700 backdrop-blur-sm"
                           >
                             {tag.label}
                           </button>
@@ -137,7 +137,7 @@ export function SearchModal() {
                   )}
 
                   {query && (
-                    <div className="space-y-2">
+                    <div className="space-y-4 p-2">
                       {filteredProducts.map((product) => (
                         <Command.Item
                           key={product.id}
@@ -146,10 +146,10 @@ export function SearchModal() {
                              router.push(`/product/${product.id}`);
                              closeSearch();
                           }}
-                          className="group flex items-center gap-4 p-2 rounded-xl hover:bg-white/60 transition-colors cursor-pointer data-[selected=true]:bg-white/80"
+                          className="group flex items-center gap-4 p-3 rounded-xl hover:bg-white/60 transition-colors cursor-pointer data-[selected=true]:bg-white/80"
                         >
                           {/* Thumbnail */}
-                          <div className="relative w-12 h-12 rounded-lg overflow-hidden shrink-0 bg-gray-100">
+                          <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
                             <Image
                               src={product.image}
                               alt={product.name}
@@ -160,7 +160,7 @@ export function SearchModal() {
 
                           {/* Info */}
                           <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-foreground truncate">{product.name}</h4>
+                            <h4 className="font-medium text-foreground truncate text-lg">{product.name}</h4>
                             <p className="text-sm text-gray-500">{product.price.toLocaleString()} ₽</p>
                           </div>
 
@@ -170,9 +170,9 @@ export function SearchModal() {
                               e.stopPropagation();
                               addItem(product);
                             }}
-                            className="w-8 h-8 flex items-center justify-center rounded-full bg-white border border-gray-200 shadow-sm text-gray-600 hover:text-neon-pink hover:border-neon-pink transition-colors"
+                            className="w-10 h-10 flex items-center justify-center rounded-full bg-avenue-pink text-white shadow-lg hover:scale-110 hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] active:scale-90 transition-all"
                           >
-                            <ShoppingBag className="w-4 h-4" />
+                            <Plus className="w-5 h-5" />
                           </button>
                         </Command.Item>
                       ))}
@@ -191,14 +191,14 @@ export function SearchModal() {
 
               {/* Mobile: Input at Bottom */}
               <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area">
-                <div className="relative flex items-center bg-gray-100 rounded-full px-4 py-3 shadow-inner">
+                <div className="relative flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
                   <Search className="w-5 h-5 text-gray-400 mr-3 shrink-0" />
                   <Command.Input
                     autoFocus
                     placeholder="Поиск..."
                     value={query}
                     onValueChange={setQuery}
-                    className="flex-1 bg-transparent border-none outline-none text-base placeholder:text-gray-400 text-foreground"
+                    className="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-gray-400 text-foreground"
                   />
                   {query && (
                     <button
