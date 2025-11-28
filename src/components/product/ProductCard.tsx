@@ -100,10 +100,8 @@ export function ProductCard({ product, className }: ProductCardProps) {
             whileTap={{ scale: 0.9 }}
             animate={isInCart ? {
               scale: [1, 0.8, 1.2, 1],
-              borderRadius: ["50%", "30%", "40%", "50%"],
               backgroundColor: "#10B981" // Success Green
             } : {
-              borderRadius: "50%",
               backgroundColor: "var(--color-neon-pink)"
             }}
             transition={{ type: "spring", stiffness: 300 }}

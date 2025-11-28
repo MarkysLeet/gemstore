@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import { Home, ShoppingBag, User, Search } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
 import { useCart } from "@/context/CartContext";
+import { useSearch } from "@/context/SearchContext";
 
 export function BottomNav() {
   const pathname = usePathname();
   const { items, setIsOpen } = useCart();
+  const { openSearch } = useSearch();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
   const cartControls = useAnimation();
   const isFirstRender = useRef(true);
@@ -33,7 +35,7 @@ export function BottomNav() {
 
   const navItems = [
     { icon: Home, label: "Главная", href: "/", type: "link" },
-    { icon: Search, label: "Поиск", href: "/search", type: "link" },
+    { icon: Search, label: "Поиск", action: openSearch, type: "button" },
     { icon: ShoppingBag, label: "Корзина", action: () => setIsOpen(true), badge: cartCount, type: "button" },
     { icon: User, label: "Профиль", href: "/profile", type: "link" },
   ];

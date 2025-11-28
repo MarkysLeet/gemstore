@@ -67,7 +67,15 @@ export function SocialHub() {
   );
 }
 
-function MagneticButton({ social }: { social: any }) {
+// Define a proper interface for the social object
+interface SocialItem {
+  id: string;
+  icon: React.ElementType;
+  label: string;
+  href: string;
+}
+
+function MagneticButton({ social }: { social: SocialItem }) {
   return (
     <motion.a
       href={social.href}
