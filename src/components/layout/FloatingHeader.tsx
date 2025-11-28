@@ -11,7 +11,7 @@ import { useCart } from "@/context/CartContext";
 export function FloatingHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const { items } = useCart();
+  const { items, cartShake } = useCart();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
 
   const isHome = pathname === "/";
@@ -61,12 +61,27 @@ export function FloatingHeader() {
             <Link href="/profile" className="hover:text-neon-pink transition-colors">
               <User className="w-5 h-5" />
             </Link>
-            <button className="relative hover:text-neon-pink transition-colors group">
-              <ShoppingBag className="w-5 h-5" />
+            <button
+              id="cart-icon-desktop"
+              className="relative hover:text-neon-pink transition-colors group"
+            >
+              <motion.div
+                animate={cartShake ? {
+                  scale: [1, 1.2, 0.9, 1.1, 1],
+                  rotate: [0, -10, 10, -5, 5, 0]
+                } : {}}
+                transition={{ duration: 0.5 }}
+              >
+                <ShoppingBag className="w-5 h-5" />
+              </motion.div>
               {cartCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-neon-pink text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-[0_0_10px_rgba(224,64,171,0.5)]">
+                <motion.span
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  className="absolute -top-2 -right-2 bg-neon-pink text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-[0_0_10px_rgba(224,64,171,0.5)]"
+                >
                   {cartCount}
-                </span>
+                </motion.span>
               )}
             </button>
           </div>

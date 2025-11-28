@@ -8,6 +8,7 @@ import { FloatingHeader } from "@/components/layout/FloatingHeader";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { Footer } from "@/components/layout/Footer";
 import { CartDrawer } from "@/components/cart/CartDrawer";
+import { AddToCartAnimation } from "@/components/cart/AddToCartAnimation";
 import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
@@ -43,6 +44,9 @@ export default function RootLayout({
 
               {/* Mobile Bottom Navigation */}
               <BottomNav />
+
+              {/* Global Animation Layers */}
+              <AddToCartAnimation />
 
               {/* Main Content - No top padding for hero video overlap, bottom padding for mobile nav */}
               <main className="min-h-screen pb-20 md:pb-0">
