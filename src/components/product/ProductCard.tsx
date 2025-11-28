@@ -30,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
   return (
     <Link href={`/product/${product.id}`} className="block group relative">
       <div
-        className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-midnight-light border border-foreground/5"
+        className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-midnight-light border border-foreground/5 shadow-md hover:shadow-lg transition-shadow duration-300"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

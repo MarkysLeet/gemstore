@@ -38,14 +38,14 @@ export function FloatingHeader() {
         <div
           className={`relative flex items-center justify-between px-8 py-3 rounded-full transition-all duration-500 ${
             isScrolled
-              ? "glass shadow-sm border border-glass-border bg-white/40 backdrop-blur-md"
+              ? "glass shadow-sm border border-glass-border bg-white/70 backdrop-blur-md"
               : isHome
               ? "bg-transparent border-transparent"
-              : "bg-white/50 backdrop-blur-sm border border-white/20"
-          }`}
+              : "glass shadow-sm border border-glass-border bg-white/70 backdrop-blur-md"
+          } ${isDarkText ? "text-foreground" : "text-white"}`}
         >
           <Link href="/">
-             <Logo />
+             <Logo variant={isDarkText ? "dark" : "light"} />
           </Link>
 
           <nav className="flex items-center gap-8">

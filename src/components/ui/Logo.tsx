@@ -2,7 +2,9 @@
 
 import { motion } from "framer-motion";
 
-export function Logo({ className = "" }: { className?: string }) {
+export function Logo({ className = "", variant = "light" }: { className?: string; variant?: "light" | "dark" }) {
+  // variant "light" = light text (for dark bg) -> Has Glow/Shadow
+  // variant "dark" = dark text (for light bg) -> Clean, no shadow
   return (
     <div className={`relative flex items-center ${className}`}>
       <motion.div
@@ -12,8 +14,12 @@ export function Logo({ className = "" }: { className?: string }) {
         className="font-display font-bold text-2xl md:text-3xl tracking-tighter"
       >
         {/* Use currentColor so it inherits from parent */}
-        <span className="text-current drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">AVENUE</span>
-        <span className="text-neon-pink drop-shadow-[0_0_10px_rgba(224,64,171,0.5)]">.PRO</span>
+        <span className={`text-current ${variant === "light" ? "drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]" : ""}`}>
+          AVENUE
+        </span>
+        <span className={`text-neon-pink ${variant === "light" ? "drop-shadow-[0_0_10px_rgba(224,64,171,0.5)]" : ""}`}>
+          .PRO
+        </span>
       </motion.div>
     </div>
   );
