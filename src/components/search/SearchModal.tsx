@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Command } from "cmdk";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, Plus } from "lucide-react";
+import { Search, X, Plus, Check } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import { PRODUCTS } from "@/lib/data";
 import { useCart } from "@/context/CartContext";
@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 
 export function SearchModal() {
   const { isSearchOpen, closeSearch } = useSearch();
-  const { addItem } = useCart();
+  const { items, addItem, removeItem } = useCart();
   const [query, setQuery] = useState("");
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
@@ -138,44 +138,83 @@ export function SearchModal() {
 
                   {query && (
                     <div className="space-y-4 p-2">
-                      {filteredProducts.map((product) => (
-                        <Command.Item
-                          key={product.id}
-                          value={product.name}
-                          onSelect={() => {
-                             router.push(`/product/${product.id}`);
-                             closeSearch();
-                          }}
-                          className="group flex items-center gap-4 p-3 rounded-xl hover:bg-white/60 transition-colors cursor-pointer data-[selected=true]:bg-white/80"
-                        >
-                          {/* Thumbnail */}
-                          <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
-                            <Image
-                              src={product.image}
-                              alt={product.name}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
+                      {filteredProducts.map((product) => {
+                        const isInCart = items.some((item) => item.id === product.id);
 
-                          {/* Info */}
-                          <div className="flex-1 min-w-0">
-                            <h4 className="font-medium text-foreground truncate text-lg">{product.name}</h4>
-                            <p className="text-sm text-gray-500">{product.price.toLocaleString()} ₽</p>
-                          </div>
-
-                          {/* Action */}
-                          <button
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              addItem(product);
+                        return (
+                          <Command.Item
+                            key={`${product.id}-${isInCart}`}
+                            value={product.name}
+                            onSelect={() => {
+                              router.push(`/product/${product.id}`);
+                              closeSearch();
                             }}
-                            className="w-10 h-10 flex items-center justify-center rounded-full bg-avenue-pink text-white shadow-lg hover:scale-110 hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] active:scale-90 transition-all"
+                            className="group flex items-center gap-4 p-3 rounded-xl hover:bg-white/60 transition-colors cursor-pointer data-[selected=true]:bg-white/80"
                           >
-                            <Plus className="w-5 h-5" />
-                          </button>
-                        </Command.Item>
-                      ))}
+                            {/* Thumbnail */}
+                            <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
+                              <Image
+                                src={product.image}
+                                alt={product.name}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+
+                            {/* Info */}
+                            <div className="flex-1 min-w-0">
+                              <h4 className="font-medium text-foreground truncate text-lg">{product.name}</h4>
+                              <p className="text-sm text-gray-500">{product.price.toLocaleString()} ₽</p>
+                            </div>
+
+                            {/* Action */}
+                            <motion.button
+                              onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                              onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                if (isInCart) {
+                                  removeItem(product.id);
+                                } else {
+                                  addItem(product);
+                                }
+                              }}
+                              animate={isInCart ? {
+                                scale: [1, 0.8, 1.2, 1],
+                                backgroundColor: "#10B981" // Success Green
+                              } : {
+                                backgroundColor: "#E040AB" // Neon Pink
+                              }}
+                              transition={{ type: "spring", stiffness: 300 }}
+                              className="w-10 h-10 flex items-center justify-center rounded-full text-white bg-neon-pink shadow-lg hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] backdrop-blur-sm relative z-10"
+                            >
+                              <AnimatePresence mode="wait">
+                                {isInCart ? (
+                                  <motion.div
+                                    key="check"
+                                    initial={{ scale: 0, rotate: -45 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    exit={{ scale: 0, rotate: 45 }}
+                                    transition={{ duration: 0.2 }}
+                                  >
+                                    <Check className="w-5 h-5" />
+                                  </motion.div>
+                                ) : (
+                                  <motion.div
+                                    key="plus"
+                                    initial={{ scale: 0, rotate: 45 }}
+                                    animate={{ scale: 1, rotate: 0 }}
+                                    exit={{ scale: 0, rotate: -45 }}
+                                    transition={{ duration: 0.2 }}
+                                  >
+                                    <Plus className="w-5 h-5" />
+                                  </motion.div>
+                                )}
+                              </AnimatePresence>
+                            </motion.button>
+                          </Command.Item>
+                        );
+                      })}
 
                       {filteredProducts.length > 0 && (
                          <div className="pt-2">
