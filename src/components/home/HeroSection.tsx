@@ -11,7 +11,7 @@ export function HeroSection() {
     >
       {/* Video Background */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        <div className="absolute inset-0 bg-black/30 z-10" /> {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-black/50 z-10" /> {/* Dark overlay for text readability */}
 
         <div className="absolute inset-0 md:-top-[20%] md:-bottom-[20%] md:-left-[20%] md:-right-[20%] md:w-[140%] md:h-[140%] w-[300%] h-full -left-[100%]">
           <iframe
@@ -62,9 +62,14 @@ export function HeroSection() {
           >
             <Link
               href="/shop"
-              className="group relative inline-flex items-center justify-center px-8 py-4 bg-transparent overflow-hidden rounded-full border border-neon-pink text-white transition-all duration-300 hover:bg-neon-pink/10 hover:shadow-[0_0_30px_rgba(224,64,171,0.4)]"
+              className="group relative inline-flex items-center justify-center px-8 py-4 overflow-hidden rounded-full border border-neon-pink text-white transition-all duration-300 shadow-[0_0_20px_rgba(224,64,171,0.3)] hover:shadow-[0_0_30px_rgba(224,64,171,0.5)] hover:scale-105"
+              style={{
+                backgroundColor: "rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
+              }}
             >
-              <span className="absolute w-0 h-0 transition-all duration-500 ease-out bg-neon-pink rounded-full group-hover:w-56 group-hover:h-56 opacity-20"></span>
+              <span className="absolute inset-0 bg-gradient-to-r from-neon-pink/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               <span className="relative flex items-center gap-3 font-medium tracking-wide">
                 Перейти в каталог <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </span>
