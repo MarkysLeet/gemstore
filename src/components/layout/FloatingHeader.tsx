@@ -7,11 +7,13 @@ import { motion, useAnimation } from "framer-motion";
 import { ShoppingBag, Search, User } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { useCart } from "@/context/CartContext";
+import { useSearch } from "@/context/SearchContext";
 
 export function FloatingHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
   const { items, setIsOpen } = useCart();
+  const { openSearch } = useSearch();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
   const cartControls = useAnimation();
   const isFirstRender = useRef(true);
@@ -74,7 +76,10 @@ export function FloatingHeader() {
           </nav>
 
           <div className={`flex items-center gap-6 transition-colors duration-300 ${isDarkText ? "text-foreground" : "text-white"}`}>
-            <button className="hover:text-neon-pink transition-colors">
+            <button
+              onClick={openSearch}
+              className="hover:text-neon-pink transition-colors"
+            >
               <Search className="w-5 h-5" />
             </button>
             <Link href="/profile" className="hover:text-neon-pink transition-colors">
