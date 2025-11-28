@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { ShoppingBag, Search, User } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
 import { useCart } from "@/context/CartContext";
@@ -11,8 +11,10 @@ import { useCart } from "@/context/CartContext";
 export function FloatingHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const { items } = useCart();
+  const { items, setIsOpen } = useCart();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+  const cartControls = useAnimation();
+  const isFirstRender = useRef(true);
 
   const isHome = pathname === "/";
   const isDarkText = !isHome || isScrolled;
@@ -24,6 +26,23 @@ export function FloatingHeader() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    cartControls.start({
+      scale: [1, 1.2, 1],
+      filter: [
+        "drop-shadow(0 0 0px rgba(224,64,171,0))",
+        "drop-shadow(0 0 8px rgba(224,64,171,0.8))",
+        "drop-shadow(0 0 0px rgba(224,64,171,0))",
+      ],
+      transition: { duration: 0.4 },
+    });
+  }, [cartCount, cartControls]);
 
   return (
     <motion.header
@@ -61,14 +80,18 @@ export function FloatingHeader() {
             <Link href="/profile" className="hover:text-neon-pink transition-colors">
               <User className="w-5 h-5" />
             </Link>
-            <button className="relative hover:text-neon-pink transition-colors group">
+            <motion.button
+              onClick={() => setIsOpen(true)}
+              animate={cartControls}
+              className="relative hover:text-neon-pink transition-colors group"
+            >
               <ShoppingBag className="w-5 h-5" />
               {cartCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-neon-pink text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full font-bold shadow-[0_0_10px_rgba(224,64,171,0.5)]">
                   {cartCount}
                 </span>
               )}
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>

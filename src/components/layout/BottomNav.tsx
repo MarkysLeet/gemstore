@@ -1,15 +1,35 @@
 "use client";
 
+import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, ShoppingBag, User, Search } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 
 export function BottomNav() {
   const pathname = usePathname();
   const { items } = useCart();
   const cartCount = items.reduce((acc, item) => acc + item.quantity, 0);
+  const cartControls = useAnimation();
+  const isFirstRender = useRef(true);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
+    cartControls.start({
+      scale: [1, 1.2, 1],
+      filter: [
+        "drop-shadow(0 0 0px rgba(224,64,171,0))",
+        "drop-shadow(0 0 8px rgba(224,64,171,0.8))",
+        "drop-shadow(0 0 0px rgba(224,64,171,0))",
+      ],
+      transition: { duration: 0.4 },
+    });
+  }, [cartCount, cartControls]);
 
   const navItems = [
     { icon: Home, label: "Главная", href: "/" },
@@ -33,7 +53,10 @@ export function BottomNav() {
                   isActive ? "text-neon-pink" : "text-gray-600 hover:text-foreground"
                 }`}
               >
-                <div className="relative p-1">
+                <motion.div
+                  className="relative p-1"
+                  animate={item.label === "Корзина" ? cartControls : {}}
+                >
                   <item.icon
                     className={`w-6 h-6 transition-transform duration-300 ${
                       isActive ? "scale-110 drop-shadow-[0_0_8px_rgba(255,16,240,0.6)]" : ""
@@ -44,7 +67,7 @@ export function BottomNav() {
                       {item.badge}
                     </span>
                   ) : null}
-                </div>
+                </motion.div>
                 <span className="text-[10px] mt-1 font-medium">{item.label}</span>
 
                 {isActive && (
