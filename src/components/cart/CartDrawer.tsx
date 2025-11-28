@@ -49,10 +49,10 @@ export function CartDrawer() {
             transition={{ type: "spring", damping: 30, stiffness: 300 }}
             className={`
               fixed z-[70] shadow-2xl flex flex-col
-              bg-white/80 backdrop-blur-2xl border-white/20
+              bg-white/70 backdrop-blur-xl
               ${isMobile
-                ? "bottom-0 left-0 w-full h-[85vh] rounded-t-3xl border-t"
-                : "top-0 right-0 h-full w-full sm:w-[480px] border-l"
+                ? "bottom-0 left-0 w-full h-[85vh] rounded-t-3xl border-t border-white/50 shadow-[0_-10px_40px_rgba(0,0,0,0.1)]"
+                : "top-0 right-0 h-full w-full sm:w-[480px] border-l border-white/50 shadow-[-10px_0_40px_rgba(0,0,0,0.1)]"
               }
             `}
           >
@@ -68,25 +68,27 @@ export function CartDrawer() {
               </div>
 
               {/* Free Shipping Progress */}
-              <div className="mb-2">
-                <div className="mb-2 text-sm text-[#1A1A1A]">
-                  {remaining > 0 ? (
-                    <>
-                      Вам не хватает <span className="font-bold text-neon-pink">{remaining} ₽</span> до бесплатной доставки и подарка 🎁
-                    </>
-                  ) : (
-                    <span className="font-bold text-neon-pink">Поздравляем! Бесплатная доставка и подарок активированы 🎉</span>
-                  )}
+              {items.length > 0 && (
+                <div className="mb-2">
+                  <div className="mb-2 text-sm text-[#1A1A1A]">
+                    {remaining > 0 ? (
+                      <>
+                        Вам не хватает <span className="font-bold text-neon-pink">{remaining} ₽</span> до бесплатной доставки и подарка 🎁
+                      </>
+                    ) : (
+                      <span className="font-bold text-neon-pink">Поздравляем! Бесплатная доставка и подарок активированы 🎉</span>
+                    )}
+                  </div>
+                  <div className="h-1 w-full bg-black/5 rounded-full overflow-hidden">
+                    <motion.div
+                      className="h-full bg-neon-pink shadow-[0_0_10px_#E040AB]"
+                      initial={{ width: 0 }}
+                      animate={{ width: `${progress}%` }}
+                      transition={{ duration: 0.5, ease: "easeOut" }}
+                    />
+                  </div>
                 </div>
-                <div className="h-1 w-full bg-black/5 rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full bg-neon-pink shadow-[0_0_10px_#E040AB]"
-                    initial={{ width: 0 }}
-                    animate={{ width: `${progress}%` }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                  />
-                </div>
-              </div>
+              )}
             </div>
 
             {/* Content Placeholder (Existing Logic with temp dark text adjustments) */}
@@ -103,7 +105,7 @@ export function CartDrawer() {
                   <Link
                     href="/shop"
                     onClick={() => setIsOpen(false)}
-                    className="px-8 py-3 bg-[#1A1A1A] text-white rounded-full font-medium hover:bg-neon-pink transition-colors shadow-lg"
+                    className="px-8 py-3 bg-transparent text-neon-pink border border-neon-pink rounded-full font-medium hover:bg-neon-pink hover:text-white transition-colors"
                   >
                     Перейти в каталог
                   </Link>
@@ -111,7 +113,7 @@ export function CartDrawer() {
               ) : (
                 items.map((item) => (
                   <div key={item.id} className="flex gap-5 items-start group">
-                    <div className="relative w-24 h-24 rounded-xl overflow-hidden border border-black/5 bg-gray-50 shrink-0 shadow-sm">
+                    <div className="relative w-28 h-28 rounded-xl overflow-hidden border border-black/5 bg-gray-50 shrink-0 shadow-sm">
                       <Image
                         src={item.image}
                         alt={item.name}
@@ -119,7 +121,7 @@ export function CartDrawer() {
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>
-                    <div className="flex-1 flex flex-col justify-between h-24 py-1">
+                    <div className="flex-1 flex flex-col justify-between h-28 py-1">
                       <div className="flex justify-between items-start gap-2">
                         <h3 className="font-serif text-[#1A1A1A] leading-tight line-clamp-2 text-sm">
                           {item.name}
@@ -141,7 +143,7 @@ export function CartDrawer() {
                           >
                             <Minus className="w-3 h-3" />
                           </button>
-                          <span className="w-6 text-center text-sm font-medium text-[#1A1A1A]">{item.quantity}</span>
+                          <span className="w-6 text-center text-sm font-bold text-gray-900">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, Math.min(10, item.quantity + 1))}
                             className="p-1.5 hover:bg-black/5 rounded-full text-gray-500 hover:text-[#1A1A1A] transition-colors"
@@ -165,7 +167,7 @@ export function CartDrawer() {
                 <Link
                   href="/checkout"
                   onClick={() => setIsOpen(false)}
-                  className="group relative w-full overflow-hidden bg-gradient-to-r from-[#FF10F0] to-[#E040AB] text-white py-4 rounded-2xl font-bold transition-all hover:shadow-[0_0_25px_rgba(224,64,171,0.6)] hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2"
+                  className="group relative w-full overflow-hidden bg-gradient-to-r from-[#FF10F0] to-[#E040AB] text-white py-4 rounded-2xl font-bold transition-all hover:shadow-[0_0_25px_rgba(224,64,171,0.6)] hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 shadow-lg shadow-pink-500/40 animate-pulse"
                 >
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
                   <span className="relative flex items-center gap-2">
