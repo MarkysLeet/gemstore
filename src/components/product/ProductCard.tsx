@@ -96,15 +96,18 @@ export function ProductCard({ product, className }: ProductCardProps) {
         <div className="absolute bottom-4 right-4 z-20">
           <motion.button
             onClick={handleAddToCart}
-            whileHover={{ scale: 1.1 }}
+            onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+            onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
             whileTap={{ scale: 0.9 }}
             animate={isInCart ? {
-              backgroundColor: "#171717" // Deep Black
+              backgroundColor: "#171717", // Deep Black
+              color: "#FFFFFF"
             } : {
               backgroundColor: "rgba(253, 242, 248, 1)", // pink-50 (initial state)
               color: "rgba(236, 72, 153, 1)" // pink-500
             }}
             transition={{ type: "spring", stiffness: 300 }}
+            whileHover={!isInCart ? { scale: 1.1, color: "#FFFFFF" } : { scale: 1.1 }}
             className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 ${
               !isInCart
                 ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] bg-pink-50 text-pink-500"

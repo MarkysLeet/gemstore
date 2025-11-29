@@ -37,7 +37,7 @@ export function CartDrawer() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black/40 z-[60] backdrop-blur-sm"
+            className="fixed inset-0 bg-black/20 z-[60] backdrop-blur-md"
           />
 
           {/* Drawer Container */}
@@ -91,7 +91,7 @@ export function CartDrawer() {
               )}
             </div>
 
-            {/* Content Placeholder (Existing Logic with temp dark text adjustments) */}
+            {/* Content Placeholder */}
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center text-gray-500">
@@ -123,7 +123,7 @@ export function CartDrawer() {
                     </div>
                     <div className="flex-1 flex flex-col justify-between h-28 py-1">
                       <div className="flex justify-between items-start gap-2">
-                        <h3 className="font-serif font-medium text-[#1A1A1A] leading-tight line-clamp-2 text-sm">
+                        <h3 className="font-serif font-medium text-[#1A1A1A] leading-tight line-clamp-2 text-lg">
                           {item.name}
                         </h3>
                         <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500 transition-colors">
@@ -132,7 +132,7 @@ export function CartDrawer() {
                       </div>
 
                       <div className="flex justify-between items-end mt-auto">
-                        <div className="text-neon-pink font-bold text-base">
+                        <div className="text-neon-pink font-bold text-xl">
                           {item.price} ₽
                         </div>
 

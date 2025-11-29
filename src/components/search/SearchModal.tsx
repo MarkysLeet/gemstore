@@ -78,7 +78,7 @@ export function SearchModal() {
         >
           {/* Backdrop */}
           <div
-            className="absolute inset-0 bg-white/80 backdrop-blur-xl"
+            className="absolute inset-0 bg-black/20 backdrop-blur-md"
             onClick={closeSearch}
           />
 
@@ -111,7 +111,7 @@ export function SearchModal() {
               </div>
 
               {/* Results Area (Middle) - Mobile: Justify End (Bottom Anchored), Desktop: Block (Top Anchored) */}
-              <div className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block">
+              <div className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block order-first md:order-last">
                 <Command.List>
                   {!query && (
                     <div className="p-4">
@@ -121,7 +121,7 @@ export function SearchModal() {
                           <button
                             key={tag.id}
                             onClick={() => handleTagClick(tag.query)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md hover:bg-pink-50 hover:text-pink-600 transition-all text-sm font-medium text-gray-700"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md hover:bg-pink-50 hover:text-pink-600 transition-all text-sm font-medium text-gray-700 shadow-sm border border-white/40"
                           >
                             <tag.icon className="w-4 h-4" strokeWidth={1.5} />
                             {tag.label}
@@ -165,7 +165,7 @@ export function SearchModal() {
                             {/* Info */}
                             <div className="flex-1 min-w-0">
                               <h4 className="font-serif font-medium text-foreground truncate text-lg">{product.name}</h4>
-                              <p className="text-sm text-gray-500 font-bold">{product.price.toLocaleString()} ₽</p>
+                              <p className="text-sm text-gray-900 font-bold">{product.price.toLocaleString()} ₽</p>
                             </div>
 
                             {/* Action */}
@@ -180,15 +180,17 @@ export function SearchModal() {
                                   addItem(product);
                                 }
                               }}
-                              whileHover={{ scale: 1.1 }}
+                              initial={false}
                               whileTap={{ scale: 0.9 }}
                               animate={isInCart ? {
-                                backgroundColor: "#171717", // Deep Black (neutral-900)
+                                backgroundColor: "#171717", // Deep Black
+                                color: "#FFFFFF"
                               } : {
                                 backgroundColor: "rgba(253, 242, 248, 1)", // pink-50
                                 color: "rgba(236, 72, 153, 1)", // pink-500
                               }}
-                              className={`w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 relative z-10 ${!isInCart ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)]" : "text-white"}`}
+                              whileHover={!isInCart ? { scale: 1.1, color: "#FFFFFF" } : { scale: 1.1 }}
+                              className={`w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 relative z-10 ${!isInCart ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)]" : ""}`}
                             >
                               <AnimatePresence mode="wait">
                                 {isInCart ? (
@@ -231,7 +233,7 @@ export function SearchModal() {
               </div>
 
               {/* Mobile: Input at Bottom */}
-              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area">
+              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area order-last md:order-first">
                 <div className="relative flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
                   <Search className="w-5 h-5 text-gray-400 mr-3 shrink-0" />
                   <Command.Input

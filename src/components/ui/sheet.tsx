@@ -1,5 +1,6 @@
 "use client";
 
+/* eslint-disable react-hooks/refs */
 import * as React from "react";
 import { motion, AnimatePresence, HTMLMotionProps } from "framer-motion";
 import { X } from "lucide-react";
