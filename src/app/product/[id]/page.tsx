@@ -25,7 +25,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   };
 
   return (
-    <div className="bg-white min-h-screen pt-32 pb-12">
+    <div className="bg-white min-h-screen pt-24 md:pt-32 pb-12">
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
           {/* Image Gallery Mock */}

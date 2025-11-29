@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, ShoppingBag, User, Search } from "lucide-react";
+import { Home, ShoppingBag, User, Search, LayoutGrid } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import { useSearch } from "@/context/SearchContext";
@@ -35,6 +35,7 @@ export function BottomNav() {
 
   const navItems = [
     { icon: Home, label: "Главная", href: "/", type: "link" },
+    { icon: LayoutGrid, label: "Каталог", href: "/shop", type: "link" },
     { icon: Search, label: "Поиск", action: openSearch, type: "button" },
     { icon: ShoppingBag, label: "Корзина", action: () => setIsOpen(true), badge: cartCount, type: "button" },
     { icon: User, label: "Профиль", href: "/profile", type: "link" },
@@ -44,9 +45,9 @@ export function BottomNav() {
     <div className="fixed bottom-0 left-0 right-0 z-50 md:hidden">
       {/* Glassmorphism Background */}
       <div className="glass-strong pb-safe-area">
-        <div className="flex justify-around items-center h-16 px-2">
+        <div className="grid grid-cols-5 items-center h-16 px-2">
           {navItems.map((item, index) => {
-            const isActive = item.type === 'link' ? pathname === item.href : false; // Buttons don't have "active" route state in the same way
+            const isActive = item.type === 'link' ? pathname === item.href : false;
 
             const content = (
               <>

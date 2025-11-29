@@ -48,7 +48,7 @@ export default function RootLayout({
                 <BottomNav />
 
                 {/* Main Content - No top padding for hero video overlap, bottom padding for mobile nav */}
-                <main className="min-h-screen pb-20 md:pb-0">
+                <main className="min-h-screen pb-24 md:pb-0">
                   {children}
                 </main>
 
