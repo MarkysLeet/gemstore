@@ -88,7 +88,7 @@ export function SearchModal() {
             initial={{ scale: 0.95, y: 20, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
             className="relative w-full md:w-[600px] h-auto max-h-[60vh] md:max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
             onClick={(e) => e.stopPropagation()}
           >
@@ -155,6 +155,9 @@ export function SearchModal() {
                           >
                             <motion.div
                               layout="position"
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.25, ease: "easeOut" }}
                               className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
                             >
                             {/* Thumbnail */}
