@@ -84,11 +84,12 @@ export function SearchModal() {
 
           {/* Modal Content */}
           <motion.div
+            layout
             initial={{ scale: 0.95, y: 20, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full md:w-[600px] h-[80vh] md:h-auto max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
+            className="relative w-full md:w-[600px] h-auto max-h-[60vh] md:max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
             onClick={(e) => e.stopPropagation()}
           >
             <Command shouldFilter={false} className="flex flex-col h-full w-full bg-transparent">
@@ -111,7 +112,7 @@ export function SearchModal() {
               </div>
 
               {/* Results Area (Middle) - Mobile: Justify End (Bottom Anchored), Desktop: Block (Top Anchored) */}
-              <div className="flex-1 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block order-first md:order-last">
+              <div className="flex-1 min-h-0 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block order-first md:order-last">
                 <Command.List>
                   {!query && (
                     <div className="p-4">
