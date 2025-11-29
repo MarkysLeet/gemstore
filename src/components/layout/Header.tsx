@@ -159,12 +159,21 @@ export function Header() {
       {/* Mobile Menu Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
+          <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setMobileMenuOpen(false)}
+            className="fixed inset-0 bg-black/20 z-[60] backdrop-blur-md md:hidden"
+          />
           <motion.div
             initial={{ opacity: 0, x: "-100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "-100%" }}
             transition={{ type: "tween" }}
-            className="fixed inset-0 z-[60] bg-white flex flex-col p-6 md:hidden"
+            className="fixed inset-y-0 left-0 z-[61] bg-white w-[80%] max-w-sm flex flex-col p-6 md:hidden shadow-2xl"
           >
             <div className="flex justify-between items-center mb-10">
               <span className="text-xl font-display font-bold">Меню</span>
@@ -185,6 +194,7 @@ export function Header() {
               ))}
             </nav>
           </motion.div>
+          </>
         )}
       </AnimatePresence>
     </>
