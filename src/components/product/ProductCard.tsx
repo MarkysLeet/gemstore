@@ -43,7 +43,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
     <Link href={`/product/${product.id}`} className="block group relative">
       <div
         className={twMerge(
-          "relative aspect-[3/4] rounded-2xl overflow-hidden bg-midnight-light border border-foreground/5 shadow-md hover:shadow-lg transition-shadow duration-300",
+          "relative aspect-[3/4] rounded-2xl overflow-hidden bg-white border border-foreground/5 shadow-md hover:shadow-lg transition-shadow duration-300",
           className
         )}
         onMouseEnter={() => setIsHovered(true)}
@@ -103,14 +103,14 @@ export function ProductCard({ product, className }: ProductCardProps) {
               backgroundColor: "#171717", // Deep Black
               color: "#FFFFFF"
             } : {
-              backgroundColor: "rgba(253, 242, 248, 1)", // pink-50 (initial state)
-              color: "rgba(236, 72, 153, 1)" // pink-500
+              backgroundColor: "rgba(255, 255, 255, 0.6)", // Glass
+              color: "#db2777" // text-pink-600
             }}
             transition={{ type: "spring", stiffness: 300 }}
             whileHover={!isInCart ? { scale: 1.1, color: "#FFFFFF" } : { scale: 1.1 }}
-            className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 ${
+            className={`w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 ${
               !isInCart
-                ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] bg-pink-50 text-pink-500"
+                ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] bg-white/60 text-pink-600"
                 : "text-white"
             }`}
           >
@@ -123,7 +123,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
                   exit={{ scale: 0, rotate: 45 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Check className="w-6 h-6" />
+                  <Check className="w-5 h-5 md:w-6 md:h-6" />
                 </motion.div>
               ) : (
                 <motion.div
@@ -133,7 +133,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
                   exit={{ scale: 0, rotate: -45 }}
                   transition={{ duration: 0.2 }}
                 >
-                  <Plus className="w-6 h-6" />
+                  <Plus className="w-5 h-5 md:w-6 md:h-6" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -141,13 +141,12 @@ export function ProductCard({ product, className }: ProductCardProps) {
         </div>
       </div>
 
-      <div className="mt-4 px-1">
-        <h3 className="font-serif text-lg text-foreground group-hover:text-neon-pink transition-colors truncate">
+      <div className="mt-3 px-1">
+        <h3 className="font-serif text-sm md:text-base text-foreground group-hover:text-neon-pink transition-colors line-clamp-2 leading-tight">
           {product.name}
         </h3>
-        <div className="flex justify-between items-center mt-1">
-          <p className="text-gray-400 text-sm">{product.category}</p>
-          <span className="font-bold text-foreground">{product.price.toLocaleString()} ₽</span>
+        <div className="flex justify-between items-center mt-2">
+          <span className="font-bold text-foreground text-sm md:text-base">{product.price.toLocaleString()} ₽</span>
         </div>
       </div>
     </Link>
