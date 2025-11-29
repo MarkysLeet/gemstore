@@ -18,7 +18,7 @@ export default function ProfilePage() {
   if (!user) return null;
 
   return (
-    <div className="min-h-screen bg-avenue-bg pt-32 pb-12">
+    <div className="min-h-screen bg-avenue-bg pt-24 md:pt-32 pb-12">
       <div className="container mx-auto px-4 md:px-6">
         <h1 className="font-display text-4xl font-bold mb-8">Личный кабинет</h1>
 

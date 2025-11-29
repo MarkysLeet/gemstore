@@ -62,7 +62,7 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="bg-avenue-bg min-h-screen pt-32 pb-12">
+    <div className="bg-avenue-bg min-h-screen pt-24 md:pt-32 pb-12">
       <div className="container mx-auto px-4 md:px-6">
         <h1 className="font-display text-3xl md:text-4xl font-bold mb-8 text-center">Оформление заказа</h1>
 
