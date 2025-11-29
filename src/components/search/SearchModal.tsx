@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Command } from "cmdk";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, Plus, Check, ShieldCheck, Gem, Sparkles, Zap } from "lucide-react";
+import { Search, X, Plus, Check, ShieldCheck, Gem, Sparkles, Zap, ArrowRight } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import { PRODUCTS } from "@/lib/data";
 import { useCart } from "@/context/CartContext";
@@ -150,7 +150,7 @@ export function SearchModal() {
                               router.push(`/product/${product.id}`);
                               closeSearch();
                             }}
-                            className="group flex items-center gap-4 p-3 rounded-xl hover:bg-white/60 transition-colors cursor-pointer data-[selected=true]:bg-white/80"
+                            className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
                           >
                             {/* Thumbnail */}
                             <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
@@ -222,8 +222,15 @@ export function SearchModal() {
 
                       {filteredProducts.length > 0 && (
                          <div className="pt-2">
-                            <button className="w-full py-3 text-center text-sm font-medium text-neon-pink hover:bg-neon-pink/5 rounded-lg transition-colors">
+                            <button
+                              onClick={() => {
+                                router.push(`/shop?search=${encodeURIComponent(query)}`);
+                                closeSearch();
+                              }}
+                              className="group flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/40 border border-white/20 backdrop-blur-md font-semibold text-gray-900 hover:bg-pink-500 hover:text-white hover:shadow-lg transition-all"
+                            >
                                 Посмотреть все результаты
+                                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                             </button>
                          </div>
                       )}
