@@ -80,48 +80,52 @@ function ShopContent() {
             </h1>
         </div>
 
-        {/* Sticky Category Bar */}
-        <div className="sticky top-14 md:top-20 z-30 mb-6 -mx-4 md:mx-0">
-          <div className="flex overflow-x-auto whitespace-nowrap no-scrollbar py-2 pl-4 pr-4 gap-2 items-center">
-             {/* Filter Button (Mobile Trigger) */}
-            <div className="md:hidden flex-shrink-0">
-                <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-                    <SheetTrigger asChild>
-                        <motion.button
-                            whileTap={{ scale: 0.95 }}
-                            className="flex items-center justify-center w-10 h-10 rounded-full bg-white/40 border border-white/20 backdrop-blur-md text-foreground"
-                        >
-                            <SlidersHorizontal className="h-5 w-5" />
-                        </motion.button>
-                    </SheetTrigger>
-                    <SheetContent>
-                        <SheetHeader>
-                            <SheetTitle>Фильтры</SheetTitle>
-                        </SheetHeader>
-                        <FilterSidebar {...filterProps} className="mt-8 border-none shadow-none p-0" />
-                    </SheetContent>
-                </Sheet>
-            </div>
+        {/* Sticky Category Bar - Frosted Glass Control Strip */}
+        <div className="sticky top-0 z-40 bg-[#FAF5F0]/85 backdrop-blur-xl border-b border-white/20 py-4 -mx-4 md:mx-0 px-4 md:px-0 mb-6">
+          <div className="relative">
+              <div className="flex overflow-x-auto whitespace-nowrap no-scrollbar gap-2 items-center pr-8">
+                {/* Filter Button (Mobile Trigger) */}
+                <div className="md:hidden flex-shrink-0">
+                    <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
+                        <SheetTrigger asChild>
+                            <motion.button
+                                whileTap={{ scale: 0.95 }}
+                                className="flex items-center justify-center w-10 h-10 rounded-full bg-white shadow-sm border border-gray-100 text-gray-600"
+                            >
+                                <SlidersHorizontal className="h-5 w-5" />
+                            </motion.button>
+                        </SheetTrigger>
+                        <SheetContent>
+                            <SheetHeader>
+                                <SheetTitle>Фильтры</SheetTitle>
+                            </SheetHeader>
+                            <FilterSidebar {...filterProps} className="mt-8 border-none shadow-none p-0" />
+                        </SheetContent>
+                    </Sheet>
+                </div>
 
-            {/* Category Pills */}
-            {CATEGORY_DISPLAY.map((label) => {
-                const value = CATEGORY_MAP[label];
-                const isActive = selectedCategory === value;
-                return (
-                    <motion.button
-                        key={label}
-                        whileTap={{ scale: 0.95 }}
-                        onClick={() => setSelectedCategory(value)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all backdrop-blur-md flex-shrink-0 border ${
-                            isActive
-                                ? "bg-pink-500 text-white shadow-lg shadow-pink-500/30 border-transparent"
-                                : "bg-white/40 border-white/20 text-foreground/80 hover:bg-white/60"
-                        }`}
-                    >
-                        {label}
-                    </motion.button>
-                );
-            })}
+                {/* Category Pills */}
+                {CATEGORY_DISPLAY.map((label) => {
+                    const value = CATEGORY_MAP[label];
+                    const isActive = selectedCategory === value;
+                    return (
+                        <motion.button
+                            key={label}
+                            whileTap={{ scale: 0.95 }}
+                            onClick={() => setSelectedCategory(value)}
+                            className={`px-4 py-2 rounded-full text-sm font-medium transition-all flex-shrink-0 ${
+                                isActive
+                                    ? "bg-pink-500 text-white shadow-lg shadow-pink-500/30 border border-transparent"
+                                    : "bg-white text-gray-600 shadow-sm border border-gray-100 hover:bg-gray-50"
+                            }`}
+                        >
+                            {label}
+                        </motion.button>
+                    );
+                })}
+              </div>
+              {/* Fade Gradient Hint */}
+              <div className="absolute right-0 top-0 bottom-0 w-8 bg-gradient-to-l from-[#FAF5F0] to-transparent pointer-events-none md:hidden" />
           </div>
         </div>
 
@@ -132,7 +136,7 @@ function ShopContent() {
           </div>
 
           {/* Grid */}
-          <main className="md:col-span-3">
+          <main className="md:col-span-3 pt-4">
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 {filteredProducts.length === 0 ? (
                     <div className="col-span-full text-center py-12 text-gray-500">
