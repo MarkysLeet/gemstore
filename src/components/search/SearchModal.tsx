@@ -151,8 +151,12 @@ export function SearchModal() {
                               router.push(`/product/${product.id}`);
                               closeSearch();
                             }}
-                            className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
+                            asChild
                           >
+                            <motion.div
+                              layout="position"
+                              className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
+                            >
                             {/* Thumbnail */}
                             <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
                               <Image
@@ -217,6 +221,7 @@ export function SearchModal() {
                                 )}
                               </AnimatePresence>
                             </motion.button>
+                            </motion.div>
                           </Command.Item>
                         );
                       })}
