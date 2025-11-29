@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Command } from "cmdk";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, X, Plus, Check } from "lucide-react";
+import { Search, X, Plus, Check, ShieldCheck, Gem, Sparkles, Zap } from "lucide-react";
 import { useSearch } from "@/context/SearchContext";
 import { PRODUCTS } from "@/lib/data";
 import { useCart } from "@/context/CartContext";
@@ -54,10 +54,10 @@ export function SearchModal() {
     : [];
 
   const concernTags = [
-    { id: "dry-skin", label: "Сухая кожа", query: "масло" },
-    { id: "acne", label: "Проблемная кожа", query: "фреза" },
-    { id: "gift", label: "Идеи подарков", query: "набор" },
-    { id: "new", label: "Новинки", query: "лампа" },
+    { id: "hema-free", label: "Hema Free", query: "hema free", icon: ShieldCheck },
+    { id: "strengthening", label: "Укрепление", query: "укрепление", icon: Gem },
+    { id: "design", label: "Дизайн", query: "дизайн", icon: Sparkles },
+    { id: "equipment", label: "Оборудование", query: "оборудование", icon: Zap },
   ];
 
   const handleTagClick = (tagQuery: string) => {
@@ -88,7 +88,7 @@ export function SearchModal() {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full md:w-[600px] h-[80vh] md:h-auto max-h-[85vh] md:rounded-3xl shadow-2xl overflow-hidden flex flex-col bg-white/70 backdrop-blur-2xl border border-white/40"
+            className="relative w-full md:w-[600px] h-[80vh] md:h-auto max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
             onClick={(e) => e.stopPropagation()}
           >
             <Command shouldFilter={false} className="flex flex-col h-full w-full bg-transparent">
@@ -100,7 +100,7 @@ export function SearchModal() {
                   placeholder="Поиск товаров..."
                   value={query}
                   onValueChange={setQuery}
-                  className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground"
+                  className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground h-full"
                 />
                 <button
                   onClick={closeSearch}
@@ -115,14 +115,15 @@ export function SearchModal() {
                 <Command.List>
                   {!query && (
                     <div className="p-4">
-                      <h3 className="text-sm font-medium text-gray-500 mb-3">Browse by Concern</h3>
+                      <h3 className="text-sm font-medium text-gray-500 mb-3">Популярные запросы</h3>
                       <div className="flex flex-wrap gap-2">
                         {concernTags.map((tag) => (
                           <button
                             key={tag.id}
                             onClick={() => handleTagClick(tag.query)}
-                            className="px-4 py-2 rounded-full bg-stone-100/50 ring-1 ring-white/20 hover:bg-pink-50 hover:text-pink-600 transition-all text-sm font-medium text-gray-700 backdrop-blur-sm"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md hover:bg-pink-50 hover:text-pink-600 transition-all text-sm font-medium text-gray-700"
                           >
+                            <tag.icon className="w-4 h-4" strokeWidth={1.5} />
                             {tag.label}
                           </button>
                         ))}
@@ -163,8 +164,8 @@ export function SearchModal() {
 
                             {/* Info */}
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-medium text-foreground truncate text-lg">{product.name}</h4>
-                              <p className="text-sm text-gray-500">{product.price.toLocaleString()} ₽</p>
+                              <h4 className="font-serif font-medium text-foreground truncate text-lg">{product.name}</h4>
+                              <p className="text-sm text-gray-500 font-bold">{product.price.toLocaleString()} ₽</p>
                             </div>
 
                             {/* Action */}
@@ -179,14 +180,15 @@ export function SearchModal() {
                                   addItem(product);
                                 }
                               }}
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
                               animate={isInCart ? {
-                                scale: [1, 0.8, 1.2, 1],
-                                backgroundColor: "#10B981" // Success Green
+                                backgroundColor: "#171717", // Deep Black (neutral-900)
                               } : {
-                                backgroundColor: "#E040AB" // Neon Pink
+                                backgroundColor: "rgba(253, 242, 248, 1)", // pink-50
+                                color: "rgba(236, 72, 153, 1)", // pink-500
                               }}
-                              transition={{ type: "spring", stiffness: 300 }}
-                              className="w-10 h-10 flex items-center justify-center rounded-full text-white bg-neon-pink shadow-lg hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] backdrop-blur-sm relative z-10"
+                              className={`w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 relative z-10 ${!isInCart ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)]" : "text-white"}`}
                             >
                               <AnimatePresence mode="wait">
                                 {isInCart ? (
@@ -237,7 +239,7 @@ export function SearchModal() {
                     placeholder="Поиск..."
                     value={query}
                     onValueChange={setQuery}
-                    className="flex-1 bg-transparent border-none outline-none text-lg placeholder:text-gray-400 text-foreground"
+                    className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground h-full"
                   />
                   {query && (
                     <button

@@ -77,7 +77,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               <span className="text-sm text-gray-400">(42 отзыва)</span>
             </div>
 
-            <h1 className="font-display text-4xl font-bold mb-4 text-gray-900">{product.name}</h1>
+            <h1 className="font-serif text-4xl font-bold mb-4 text-gray-900">{product.name}</h1>
             <p className="text-2xl font-medium text-gray-900 mb-6">{product.price} ₽</p>
 
             <p className="text-gray-600 mb-8 leading-relaxed border-b border-gray-100 pb-8">

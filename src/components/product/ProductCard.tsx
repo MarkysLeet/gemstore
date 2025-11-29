@@ -99,13 +99,17 @@ export function ProductCard({ product, className }: ProductCardProps) {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             animate={isInCart ? {
-              scale: [1, 0.8, 1.2, 1],
-              backgroundColor: "#10B981" // Success Green
+              backgroundColor: "#171717" // Deep Black
             } : {
-              backgroundColor: "var(--color-neon-pink)"
+              backgroundColor: "rgba(253, 242, 248, 1)", // pink-50 (initial state)
+              color: "rgba(236, 72, 153, 1)" // pink-500
             }}
             transition={{ type: "spring", stiffness: 300 }}
-            className="w-12 h-12 rounded-full flex items-center justify-center text-white shadow-[0_0_15px_rgba(224,64,171,0.5)] backdrop-blur-sm"
+            className={`w-12 h-12 rounded-full flex items-center justify-center backdrop-blur-sm transition-all duration-300 ${
+              !isInCart
+                ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)] bg-pink-50 text-pink-500"
+                : "text-white"
+            }`}
           >
             <AnimatePresence mode="wait">
               {isInCart ? (
@@ -135,12 +139,12 @@ export function ProductCard({ product, className }: ProductCardProps) {
       </div>
 
       <div className="mt-4 px-1">
-        <h3 className="font-display text-lg text-foreground group-hover:text-neon-pink transition-colors truncate">
+        <h3 className="font-serif text-lg text-foreground group-hover:text-neon-pink transition-colors truncate">
           {product.name}
         </h3>
         <div className="flex justify-between items-center mt-1">
           <p className="text-gray-400 text-sm">{product.category}</p>
-          <span className="font-medium text-foreground">{product.price.toLocaleString()} ₽</span>
+          <span className="font-bold text-foreground">{product.price.toLocaleString()} ₽</span>
         </div>
       </div>
     </Link>

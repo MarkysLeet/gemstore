@@ -1,7 +1,7 @@
 "use client";
 
 import { useCart } from "@/context/CartContext";
-import { X, Plus, Minus, ShoppingBag, ArrowRight } from "lucide-react";
+import { X, Plus, Minus, ShoppingBag, ArrowRight, Briefcase } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -95,12 +95,12 @@ export function CartDrawer() {
             <div className="flex-1 overflow-y-auto p-6 space-y-6">
               {items.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center text-gray-500">
-                  <ShoppingBag className="w-16 h-16 mb-4 text-gray-300/50" />
+                  <Briefcase className="w-16 h-16 mb-4 text-gray-300/50" />
                   <p className="text-xl font-serif font-bold mb-2 text-[#1A1A1A]">
-                    Ваша корзина пуста, <br/> но ваша кожа хочет пить.
+                    Ваш кейс пуст
                   </p>
                   <p className="text-sm mb-8 text-gray-500 max-w-[250px] mx-auto">
-                    Загляните в каталог, чтобы найти идеальный уход для себя.
+                    Добавьте топовые оттенки и надежное оборудование для идеального маникюра.
                   </p>
                   <Link
                     href="/shop"
@@ -123,7 +123,7 @@ export function CartDrawer() {
                     </div>
                     <div className="flex-1 flex flex-col justify-between h-28 py-1">
                       <div className="flex justify-between items-start gap-2">
-                        <h3 className="font-serif text-[#1A1A1A] leading-tight line-clamp-2 text-sm">
+                        <h3 className="font-serif font-medium text-[#1A1A1A] leading-tight line-clamp-2 text-sm">
                           {item.name}
                         </h3>
                         <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500 transition-colors">
@@ -132,7 +132,7 @@ export function CartDrawer() {
                       </div>
 
                       <div className="flex justify-between items-end mt-auto">
-                        <div className="text-neon-pink font-bold text-sm">
+                        <div className="text-neon-pink font-bold text-base">
                           {item.price} ₽
                         </div>
 
