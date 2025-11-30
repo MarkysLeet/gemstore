@@ -82,9 +82,8 @@ export function SearchModal() {
             onClick={closeSearch}
           />
 
-          {/* Modal Content */}
+          {/* Modal Content - REMOVED 'layout' PROP from here to prevent distortion */}
           <motion.div
-            layout
             initial={{ scale: 0.95, y: 20, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
@@ -93,8 +92,8 @@ export function SearchModal() {
             onClick={(e) => e.stopPropagation()}
           >
             <Command shouldFilter={false} className="flex flex-col h-full w-full bg-transparent">
-              {/* Desktop: Input at Top */}
-              <div className="hidden md:flex items-center border-b border-gray-200/50 px-6 py-4 bg-white/40 h-16">
+              {/* Desktop: Input at Top (Static) */}
+              <div className="hidden md:flex items-center border-b border-gray-200/50 px-6 py-4 bg-white/40 h-16 shrink-0">
                 <Search className="w-6 h-6 text-gray-800 mr-4" />
                 <Command.Input
                   autoFocus
@@ -111,137 +110,147 @@ export function SearchModal() {
                 </button>
               </div>
 
-              {/* Results Area (Middle) - Mobile: Justify End (Bottom Anchored), Desktop: Block (Top Anchored) */}
-              <div className="flex-1 min-h-0 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block order-first md:order-last">
-                <Command.List>
-                  {!query && (
-                    <div className="p-4">
-                      <h3 className="text-sm font-medium text-gray-500 mb-3">Популярные запросы</h3>
-                      <div className="flex flex-wrap gap-2">
-                        {concernTags.map((tag) => (
-                          <button
-                            key={tag.id}
-                            onClick={() => handleTagClick(tag.query)}
-                            className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md hover:bg-pink-50 hover:text-pink-600 transition-all text-sm font-medium text-gray-700 shadow-sm border border-white/40"
-                          >
-                            <tag.icon className="w-4 h-4" strokeWidth={1.5} />
-                            {tag.label}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+              {/* Animated Results Container (The Curtain) */}
+              {/* This wrapper animates height from 0 to auto, isolating the input from scale distortion */}
+              <motion.div
+                 layout
+                 initial={{ height: 0, opacity: 0 }}
+                 animate={{ height: "auto", opacity: 1 }}
+                 exit={{ height: 0, opacity: 0 }}
+                 transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
+                 className="overflow-hidden flex flex-col order-first md:order-last min-h-0"
+              >
+                  <div className="flex-1 min-h-0 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block">
+                    <Command.List>
+                      {!query && (
+                        <div className="p-4">
+                          <h3 className="text-sm font-medium text-gray-500 mb-3">Популярные запросы</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {concernTags.map((tag) => (
+                              <button
+                                key={tag.id}
+                                onClick={() => handleTagClick(tag.query)}
+                                className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md hover:bg-pink-50 hover:text-pink-600 transition-all text-sm font-medium text-gray-700 shadow-sm border border-white/40"
+                              >
+                                <tag.icon className="w-4 h-4" strokeWidth={1.5} />
+                                {tag.label}
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
 
-                  {query && filteredProducts.length === 0 && (
-                     <div className="py-12 text-center text-gray-500 text-sm">
-                        Ничего не найдено.
-                     </div>
-                  )}
-
-                  {query && (
-                    <div className="space-y-4 p-2">
-                      {filteredProducts.map((product) => {
-                        const isInCart = items.some((item) => item.id === product.id);
-
-                        return (
-                          <Command.Item
-                            key={`${product.id}-${isInCart}`}
-                            value={product.name}
-                            onSelect={() => {
-                              router.push(`/product/${product.id}`);
-                              closeSearch();
-                            }}
-                            className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
-                          >
-                            {/* Thumbnail */}
-                            <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
-                              <Image
-                                src={product.image}
-                                alt={product.name}
-                                fill
-                                className="object-cover"
-                              />
-                            </div>
-
-                            {/* Info */}
-                            <div className="flex-1 min-w-0">
-                              <h4 className="font-serif font-medium text-foreground truncate text-lg">{product.name}</h4>
-                              <p className="text-sm text-gray-900 font-bold">{product.price.toLocaleString()} ₽</p>
-                            </div>
-
-                            {/* Action */}
-                            <motion.button
-                              onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
-                              onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (isInCart) {
-                                  removeItem(product.id);
-                                } else {
-                                  addItem(product);
-                                }
-                              }}
-                              initial={false}
-                              whileTap={{ scale: 0.9 }}
-                              animate={isInCart ? {
-                                backgroundColor: "#171717", // Deep Black
-                                color: "#FFFFFF"
-                              } : {
-                                backgroundColor: "rgba(253, 242, 248, 1)", // pink-50
-                                color: "rgba(236, 72, 153, 1)", // pink-500
-                              }}
-                              whileHover={!isInCart ? { scale: 1.1, color: "#FFFFFF" } : { scale: 1.1 }}
-                              className={`w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 relative z-10 ${!isInCart ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)]" : ""}`}
-                            >
-                              <AnimatePresence mode="wait">
-                                {isInCart ? (
-                                  <motion.div
-                                    key="check"
-                                    initial={{ scale: 0, rotate: -45 }}
-                                    animate={{ scale: 1, rotate: 0 }}
-                                    exit={{ scale: 0, rotate: 45 }}
-                                    transition={{ duration: 0.2 }}
-                                  >
-                                    <Check className="w-5 h-5" />
-                                  </motion.div>
-                                ) : (
-                                  <motion.div
-                                    key="plus"
-                                    initial={{ scale: 0, rotate: 45 }}
-                                    animate={{ scale: 1, rotate: 0 }}
-                                    exit={{ scale: 0, rotate: -45 }}
-                                    transition={{ duration: 0.2 }}
-                                  >
-                                    <Plus className="w-5 h-5" />
-                                  </motion.div>
-                                )}
-                              </AnimatePresence>
-                            </motion.button>
-                          </Command.Item>
-                        );
-                      })}
-
-                      {filteredProducts.length > 0 && (
-                         <div className="pt-2">
-                            <button
-                              onClick={() => {
-                                router.push(`/shop?search=${encodeURIComponent(query)}`);
-                                closeSearch();
-                              }}
-                              className="group flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/40 border border-white/20 backdrop-blur-md font-semibold text-gray-900 hover:bg-pink-500 hover:text-white hover:shadow-lg transition-all"
-                            >
-                                Посмотреть все результаты
-                                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
-                            </button>
+                      {query && filteredProducts.length === 0 && (
+                         <div className="py-12 text-center text-gray-500 text-sm">
+                            Ничего не найдено.
                          </div>
                       )}
-                    </div>
-                  )}
-                </Command.List>
-              </div>
 
-              {/* Mobile: Input at Bottom */}
-              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area order-last md:order-first">
+                      {query && (
+                        <div className="space-y-4 p-2">
+                          {filteredProducts.map((product) => {
+                            const isInCart = items.some((item) => item.id === product.id);
+
+                            return (
+                              <Command.Item
+                                key={`${product.id}-${isInCart}`}
+                                value={product.name}
+                                onSelect={() => {
+                                  router.push(`/product/${product.id}`);
+                                  closeSearch();
+                                }}
+                                className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
+                              >
+                                {/* Thumbnail */}
+                                <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
+                                  <Image
+                                    src={product.image}
+                                    alt={product.name}
+                                    fill
+                                    className="object-cover"
+                                  />
+                                </div>
+
+                                {/* Info */}
+                                <div className="flex-1 min-w-0">
+                                  <h4 className="font-serif font-medium text-foreground truncate text-lg">{product.name}</h4>
+                                  <p className="text-sm text-gray-900 font-bold">{product.price.toLocaleString()} ₽</p>
+                                </div>
+
+                                {/* Action */}
+                                <motion.button
+                                  onPointerDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                                  onMouseDown={(e) => { e.preventDefault(); e.stopPropagation(); }}
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    if (isInCart) {
+                                      removeItem(product.id);
+                                    } else {
+                                      addItem(product);
+                                    }
+                                  }}
+                                  initial={false}
+                                  whileTap={{ scale: 0.9 }}
+                                  animate={isInCart ? {
+                                    backgroundColor: "#171717", // Deep Black
+                                    color: "#FFFFFF"
+                                  } : {
+                                    backgroundColor: "rgba(253, 242, 248, 1)", // pink-50
+                                    color: "rgba(236, 72, 153, 1)", // pink-500
+                                  }}
+                                  whileHover={!isInCart ? { scale: 1.1, color: "#FFFFFF" } : { scale: 1.1 }}
+                                  className={`w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 relative z-10 ${!isInCart ? "hover:bg-gradient-to-r hover:from-pink-500 hover:to-pink-400 hover:text-white hover:shadow-[0_0_15px_rgba(255,16,240,0.5)]" : ""}`}
+                                >
+                                  <AnimatePresence mode="wait">
+                                    {isInCart ? (
+                                      <motion.div
+                                        key="check"
+                                        initial={{ scale: 0, rotate: -45 }}
+                                        animate={{ scale: 1, rotate: 0 }}
+                                        exit={{ scale: 0, rotate: 45 }}
+                                        transition={{ duration: 0.2 }}
+                                      >
+                                        <Check className="w-5 h-5" />
+                                      </motion.div>
+                                    ) : (
+                                      <motion.div
+                                        key="plus"
+                                        initial={{ scale: 0, rotate: 45 }}
+                                        animate={{ scale: 1, rotate: 0 }}
+                                        exit={{ scale: 0, rotate: -45 }}
+                                        transition={{ duration: 0.2 }}
+                                      >
+                                        <Plus className="w-5 h-5" />
+                                      </motion.div>
+                                    )}
+                                  </AnimatePresence>
+                                </motion.button>
+                              </Command.Item>
+                            );
+                          })}
+
+                          {filteredProducts.length > 0 && (
+                             <div className="pt-2">
+                                <button
+                                  onClick={() => {
+                                    router.push(`/shop?search=${encodeURIComponent(query)}`);
+                                    closeSearch();
+                                  }}
+                                  className="group flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/40 border border-white/20 backdrop-blur-md font-semibold text-gray-900 hover:bg-pink-500 hover:text-white hover:shadow-lg transition-all"
+                                >
+                                    Посмотреть все результаты
+                                    <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+                                </button>
+                             </div>
+                          )}
+                        </div>
+                      )}
+                    </Command.List>
+                  </div>
+              </motion.div>
+
+              {/* Mobile: Input at Bottom (Static) */}
+              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area shrink-0 order-last md:order-first">
                 <div className="relative flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
                   <Search className="w-5 h-5 text-gray-400 mr-3 shrink-0" />
                   <Command.Input
