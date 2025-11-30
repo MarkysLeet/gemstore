@@ -75,6 +75,12 @@ export function SearchModal() {
     }
   };
 
+  const handleMobileScroll = () => {
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
+  };
+
   if (!mounted) return null;
 
   return (
@@ -149,11 +155,18 @@ export function SearchModal() {
 
                       {query && (
                         <div className="space-y-4 p-2">
+                          <AnimatePresence mode="popLayout">
                           {filteredProducts.map((product) => {
                              const isInCart = items.some((item) => item.id === product.id);
                              return (
-                               <Command.Item
+                               <motion.div
                                  key={`${product.id}-desktop`}
+                                 initial={{ y: -20, opacity: 0 }}
+                                 animate={{ y: 0, opacity: 1 }}
+                                 exit={{ opacity: 0 }}
+                                 transition={{ type: "spring", bounce: 0, duration: 0.3 }}
+                               >
+                               <Command.Item
                                  value={product.name}
                                  onSelect={() => handleProductSelect(product)}
                                  className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
@@ -173,8 +186,10 @@ export function SearchModal() {
                                     {isInCart ? <Check className="w-5 h-5" /> : <Plus className="w-5 h-5" />}
                                   </motion.button>
                                </Command.Item>
+                               </motion.div>
                              );
                           })}
+                          </AnimatePresence>
                           {filteredProducts.length > 0 && (
                              <div className="pt-2">
                                 <button
@@ -206,6 +221,8 @@ export function SearchModal() {
                   exit={{ opacity: 0, y: 20 }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="absolute bottom-[88px] left-0 w-full max-h-[50vh] h-auto overflow-y-auto flex flex-col-reverse justify-end px-4 pb-2 z-40 no-scrollbar gap-2"
+                  onTouchMove={handleMobileScroll}
+                  onScroll={handleMobileScroll}
                 >
                    <Command.List className="contents">
                       {/* Flex-Col-Reverse Order:
@@ -247,11 +264,19 @@ export function SearchModal() {
                       {/* Results */}
                       {query && filteredProducts.length > 0 && (
                         <>
+                           <AnimatePresence mode="popLayout">
                            {filteredProducts.map((product) => {
                              const isInCart = items.some((item) => item.id === product.id);
                              return (
-                               <Command.Item
+                               <motion.div
                                  key={`${product.id}-mobile`}
+                                 initial={{ y: "100%", opacity: 0 }}
+                                 animate={{ y: 0, opacity: 1 }}
+                                 exit={{ opacity: 0, scale: 0.95 }}
+                                 transition={{ type: "spring", bounce: 0, duration: 0.4 }}
+                                 className="w-full"
+                               >
+                               <Command.Item
                                  value={product.name}
                                  onSelect={() => handleProductSelect(product)}
                                  className="w-full bg-white/60 backdrop-blur-md border border-white/40 rounded-xl p-3 flex items-center gap-3 shadow-sm active:scale-95 transition-transform"
@@ -270,8 +295,10 @@ export function SearchModal() {
                                      {isInCart ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
                                   </button>
                                </Command.Item>
+                               </motion.div>
                              );
                            })}
+                           </AnimatePresence>
 
                            {/* The "View All" button - Last in DOM = Top of Stack in flex-col-reverse */}
                            <div className="w-full">
