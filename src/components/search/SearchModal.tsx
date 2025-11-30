@@ -258,12 +258,12 @@ export function SearchModal() {
                     placeholder="Поиск..."
                     value={query}
                     onValueChange={setQuery}
-                    className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground h-full"
+                    className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground h-full pr-10"
                   />
                   {query && (
                     <button
                       onClick={() => setQuery("")}
-                      className="ml-2 p-1 bg-gray-200 rounded-full"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 bg-gray-200 rounded-full"
                     >
                        <X className="w-3 h-3 text-gray-500" />
                     </button>
