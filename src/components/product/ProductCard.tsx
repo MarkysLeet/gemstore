@@ -25,6 +25,9 @@ interface ProductCardProps {
 
 export function ProductCard({ product, className }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  // Add state to handle image fallback
+  const [imgSrc, setImgSrc] = useState(product.image || "/images/lak.jpg");
+
   const { items, addItem, removeItem } = useCart();
 
   const isInCart = items.some((item) => item.id === product.id);
@@ -51,10 +54,14 @@ export function ProductCard({ product, className }: ProductCardProps) {
       >
         {/* Main Image */}
         <Image
-          src={product.image || "/images/lak.jpg"}
+          src={imgSrc}
           alt={product.name}
           fill
           className={`object-cover transition-opacity duration-500 ${isHovered && product.video ? "opacity-0" : "opacity-100"}`}
+          onError={() => {
+            // Fallback if the image fails to load
+            setImgSrc("/images/lak.jpg");
+          }}
         />
 
         {/* Video Preview */}
