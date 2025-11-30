@@ -113,19 +113,27 @@ export function CartDrawer() {
               ) : (
                 items.map((item) => (
                   <div key={item.id} className="flex gap-5 items-start group">
-                    <div className="relative w-28 h-28 rounded-xl overflow-hidden border border-black/5 bg-gray-50 shrink-0 shadow-sm">
+                    <Link
+                      href={`/product/${item.id}`}
+                      onClick={() => setIsOpen(false)}
+                      className="relative w-28 h-28 rounded-xl overflow-hidden border border-black/5 bg-gray-50 shrink-0 shadow-sm cursor-pointer"
+                    >
                       <Image
                         src={item.image}
                         alt={item.name}
                         fill
                         className="object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                    </div>
+                    </Link>
                     <div className="flex-1 flex flex-col justify-between h-28 py-1">
                       <div className="flex justify-between items-start gap-2">
-                        <h3 className="font-serif font-medium text-[#1A1A1A] leading-tight line-clamp-2 text-lg">
+                        <Link
+                          href={`/product/${item.id}`}
+                          onClick={() => setIsOpen(false)}
+                          className="font-serif font-medium text-[#1A1A1A] leading-tight line-clamp-2 text-lg hover:text-neon-pink transition-colors cursor-pointer"
+                        >
                           {item.name}
-                        </h3>
+                        </Link>
                         <button onClick={() => removeItem(item.id)} className="text-gray-400 hover:text-red-500 transition-colors">
                           <X className="w-4 h-4" />
                         </button>

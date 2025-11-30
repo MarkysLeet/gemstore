@@ -47,5 +47,29 @@ export const PRODUCTS = [
     image: "/images/lak.jpg",
     category: "tools",
     description: "Керамическая фреза 'Пламя' для снятия искусственного материала. Не нагревается, долговечна. Подходит для работы с жестким материалом."
+  },
+  {
+    id: "7",
+    name: "Gel Polish Professional 001",
+    price: 450,
+    image: "/images/001.png",
+    category: "gel",
+    description: "Профессиональный гель-лак с насыщенным пигментом. Самовыравнивающаяся формула, стойкость до 4 недель. Идеальное покрытие в один слой."
+  },
+  {
+    id: "8",
+    name: "Gel Polish Professional 002",
+    price: 480,
+    image: "/images/002.png",
+    category: "gel",
+    description: "Гель-лак с эффектом мерцания. Плотная текстура, не растекается. Безопасная Hema Free формула для чувствительных ногтей."
+  },
+  {
+    id: "9",
+    name: "Gel Polish Professional 004",
+    price: 520,
+    image: "/images/004.png",
+    category: "gel",
+    description: "Ультра-глянцевый гель-лак трендового оттенка. Высокая укрывистость, удобная кисть для нанесения под кутикулу."
   }
 ];
