@@ -13,6 +13,15 @@ export default function CheckoutPage() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const router = useRouter();
 
+  const FREE_SHIPPING_THRESHOLD = 2000;
+  const isFreeShipping = totalPrice >= FREE_SHIPPING_THRESHOLD;
+  const deliveryPrice = isFreeShipping ? 0 : 350;
+  const pickupPrice = isFreeShipping ? 0 : 250;
+
+  // Assuming default selection is standard delivery for calculation purposes
+  const [selectedDelivery, setSelectedDelivery] = useState<'standard' | 'pickup'>('standard');
+  const currentDeliveryCost = selectedDelivery === 'standard' ? deliveryPrice : pickupPrice;
+
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
@@ -131,17 +140,31 @@ export default function CheckoutPage() {
                   <h2 className="font-bold text-xl mb-4">Способ доставки</h2>
                   <div className="space-y-3">
                     <label className="flex items-center gap-4 p-4 border rounded-xl cursor-pointer hover:border-avenue-pink transition-colors has-[:checked]:border-avenue-pink has-[:checked]:bg-avenue-pink/5">
-                      <input type="radio" name="delivery" defaultChecked className="text-avenue-pink focus:ring-avenue-pink" />
+                      <input
+                        type="radio"
+                        name="delivery"
+                        value="standard"
+                        checked={selectedDelivery === 'standard'}
+                        onChange={() => setSelectedDelivery('standard')}
+                        className="text-avenue-pink focus:ring-avenue-pink"
+                      />
                       <div>
                         <div className="font-medium">Курьерская доставка</div>
-                        <div className="text-sm text-gray-500">1-2 дня, 350 ₽</div>
+                        <div className="text-sm text-gray-500">1-2 дня, {isFreeShipping ? "Бесплатно" : `${deliveryPrice} ₺`}</div>
                       </div>
                     </label>
                     <label className="flex items-center gap-4 p-4 border rounded-xl cursor-pointer hover:border-avenue-pink transition-colors has-[:checked]:border-avenue-pink has-[:checked]:bg-avenue-pink/5">
-                      <input type="radio" name="delivery" className="text-avenue-pink focus:ring-avenue-pink" />
+                      <input
+                        type="radio"
+                        name="delivery"
+                        value="pickup"
+                        checked={selectedDelivery === 'pickup'}
+                        onChange={() => setSelectedDelivery('pickup')}
+                        className="text-avenue-pink focus:ring-avenue-pink"
+                      />
                       <div>
                         <div className="font-medium">Пункт выдачи СДЭК</div>
-                        <div className="text-sm text-gray-500">2-4 дня, 250 ₽</div>
+                        <div className="text-sm text-gray-500">2-4 дня, {isFreeShipping ? "Бесплатно" : `${pickupPrice} ₺`}</div>
                       </div>
                     </label>
                   </div>
@@ -191,7 +214,7 @@ export default function CheckoutPage() {
                     </div>
                     <div className="flex-1">
                       <div className="text-sm font-medium line-clamp-1">{item.name}</div>
-                      <div className="text-xs text-gray-500">{item.quantity} x {item.price} ₽</div>
+                      <div className="text-xs text-gray-500">{item.quantity} x {item.price} ₺</div>
                     </div>
                   </div>
                 ))}
@@ -199,15 +222,15 @@ export default function CheckoutPage() {
               <div className="border-t border-gray-100 pt-4 space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span className="text-gray-500">Товары</span>
-                  <span>{totalPrice} ₽</span>
+                  <span>{totalPrice} ₺</span>
                 </div>
                  <div className="flex justify-between">
                   <span className="text-gray-500">Доставка</span>
-                  <span>350 ₽</span>
+                  <span>{currentDeliveryCost === 0 ? "Бесплатно" : `${currentDeliveryCost} ₺`}</span>
                 </div>
                 <div className="flex justify-between text-lg font-bold pt-2">
                   <span>Итого</span>
-                  <span className="text-avenue-pink">{totalPrice + 350} ₽</span>
+                  <span className="text-avenue-pink">{totalPrice + currentDeliveryCost} ₺</span>
                 </div>
               </div>
             </div>

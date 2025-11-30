@@ -140,7 +140,7 @@ export default function AdminPage() {
                       {product.category}
                     </span>
                   </td>
-                  <td className="p-4 font-medium">{product.price} ₽</td>
+                  <td className="p-4 font-medium">{product.price} ₺</td>
                   <td className="p-4 text-right">
                     <div className="flex items-center justify-end gap-2">
                       <button
@@ -191,7 +191,7 @@ export default function AdminPage() {
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Цена (₽)</label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Цена (₺)</label>
                   <input
                     type="number"
                     value={formData.price}

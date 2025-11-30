@@ -10,7 +10,7 @@ import { useState, useEffect } from "react";
 export function CartDrawer() {
   const { items, removeItem, updateQuantity, totalPrice, isOpen, setIsOpen } = useCart();
   const [isMobile, setIsMobile] = useState(false);
-  const FREE_SHIPPING_THRESHOLD = 5000;
+  const FREE_SHIPPING_THRESHOLD = 2000;
   const remaining = Math.max(0, FREE_SHIPPING_THRESHOLD - totalPrice);
   const progress = Math.min((totalPrice / FREE_SHIPPING_THRESHOLD) * 100, 100);
 
@@ -73,7 +73,7 @@ export function CartDrawer() {
                   <div className="mb-2 text-sm text-[#1A1A1A]">
                     {remaining > 0 ? (
                       <>
-                        Вам не хватает <span className="font-bold text-neon-pink">{remaining} ₽</span> до бесплатной доставки и подарка 🎁
+                        Вам не хватает <span className="font-bold text-neon-pink">{remaining} ₺</span> до бесплатной доставки и подарка 🎁
                       </>
                     ) : (
                       <span className="font-bold text-neon-pink">Поздравляем! Бесплатная доставка и подарок активированы 🎉</span>
@@ -141,7 +141,7 @@ export function CartDrawer() {
 
                       <div className="flex justify-between items-end mt-auto">
                         <div className="text-neon-pink font-bold text-xl">
-                          {item.price} ₽
+                          {item.price} ₺
                         </div>
 
                         <div className="flex items-center bg-white/60 border border-black/5 rounded-full px-1 shadow-sm backdrop-blur-sm">
@@ -170,7 +170,7 @@ export function CartDrawer() {
               <div className="p-6 pt-2 bg-gradient-to-t from-white/90 to-transparent">
                 <div className="flex justify-between items-end mb-4 px-1">
                   <span className="text-gray-500 font-medium">Итого:</span>
-                  <span className="text-3xl font-serif font-bold text-[#1A1A1A]">{totalPrice} ₽</span>
+                  <span className="text-3xl font-serif font-bold text-[#1A1A1A]">{totalPrice} ₺</span>
                 </div>
                 <Link
                   href="/checkout"

@@ -17,15 +17,15 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-const CATEGORY_DISPLAY = ['All', 'Gel Polishes', 'Lamps', 'Drills', 'Care', 'Sets'];
+const CATEGORY_DISPLAY = ['Все', 'Гель-лаки', 'Оборудование', 'Инструменты', 'Уход', 'Наборы'];
 
 const CATEGORY_MAP: Record<string, string> = {
-  'All': 'all',
-  'Gel Polishes': 'gel',
-  'Lamps': 'equipment',
-  'Drills': 'tools',
-  'Care': 'care',
-  'Sets': 'sets'
+  'Все': 'all',
+  'Гель-лаки': 'gel',
+  'Оборудование': 'equipment',
+  'Инструменты': 'tools',
+  'Уход': 'care',
+  'Наборы': 'sets'
 };
 
 function ShopContent() {
