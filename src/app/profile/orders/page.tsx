@@ -49,7 +49,7 @@ export default function OrdersPage() {
                   <div className="w-12 h-12 bg-gray-100 rounded-lg" />
                   <div className="w-12 h-12 bg-gray-100 rounded-lg" />
                   <div className="text-sm text-gray-500 ml-2">+ еще 2 товара</div>
-                  <div className="ml-auto font-bold text-lg">8 450 ₽</div>
+                  <div className="ml-auto font-bold text-lg">8 450 ₺</div>
                 </div>
               </div>
 
@@ -66,7 +66,7 @@ export default function OrdersPage() {
                 </div>
                  <div className="flex gap-4 items-center">
                   <div className="w-12 h-12 bg-gray-100 rounded-lg" />
-                  <div className="ml-auto font-bold text-lg">2 100 ₽</div>
+                  <div className="ml-auto font-bold text-lg">2 100 ₺</div>
                 </div>
               </div>
             </div>

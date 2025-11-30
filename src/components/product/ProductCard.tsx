@@ -129,7 +129,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
           {product.name}
         </h3>
         <div className="flex justify-between items-center mt-2">
-          <span className="font-bold text-foreground text-sm md:text-base">{product.price.toLocaleString()} ₽</span>
+          <span className="font-bold text-foreground text-sm md:text-base">{product.price.toLocaleString()} ₺</span>
         </div>
       </div>
     </Link>
