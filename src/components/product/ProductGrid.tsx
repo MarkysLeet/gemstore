@@ -9,34 +9,52 @@ const SAMPLE_PRODUCTS: Product[] = [
     name: "Luminescent Gel Polish #01",
     price: 850,
     category: "Gel Polish",
-    image: "https://images.unsplash.com/photo-1632515907483-365261543b74?auto=format&fit=crop&q=80&w=800",
+    image: "/images/lak.jpg",
     video: "https://cdn.coverr.co/videos/coverr-applying-nail-polish-1569/1080p.mp4", // Mock video
-    texture: "https://png.pngtree.com/png-clipart/20230427/original/pngtree-pink-paint-brush-stroke-texture-png-image_9115291.png" // Mock smear
+  },
+  {
+    id: "7",
+    name: "Серый Туман (Neutral medium dove gray)",
+    price: 315,
+    category: "gel",
+    image: "/images/001.png",
   },
   {
     id: "2",
     name: "Diamond Drill Bit - Flame",
     price: 450,
     category: "Tools",
-    image: "https://images.unsplash.com/photo-1610992015762-494054ae5206?auto=format&fit=crop&q=80&w=800",
+    image: "/images/lak.jpg",
     // No video for this one to test fallback
-    texture: "https://static.vecteezy.com/system/resources/previews/009/344/667/original/golden-brush-stroke-texture-free-png.png"
+  },
+  {
+    id: "8",
+    name: "Грифельный Серый (Medium slate gray)",
+    price: 315,
+    category: "gel",
+    image: "/images/002.png",
   },
   {
     id: "3",
     name: "UV/LED Lamp 'Photon'",
     price: 5900,
     category: "Equipment",
-    image: "https://images.unsplash.com/photo-1522337660859-02fbefca4702?auto=format&fit=crop&q=80&w=800",
+    image: "/images/lak.jpg",
     video: "https://cdn.coverr.co/videos/coverr-woman-showing-off-her-manicure-5444/1080p.mp4"
+  },
+  {
+    id: "9",
+    name: "Холодный Фарфор (Pale cool-toned off-white)",
+    price: 315,
+    category: "gel",
+    image: "/images/004.png",
   },
   {
     id: "4",
     name: "Cuticle Oil 'Midnight'",
     price: 650,
     category: "Care",
-    image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&q=80&w=800",
-    texture: "https://png.pngtree.com/png-clipart/20210310/ourmid/pngtree-pink-oil-paint-smudge-texture-brush-strokes-png-image_3020664.jpg"
+    image: "/images/lak.jpg",
   }
 ];
 

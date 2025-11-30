@@ -47,5 +47,29 @@ export const PRODUCTS = [
     image: "/images/lak.jpg",
     category: "tools",
     description: "Керамическая фреза 'Пламя' для снятия искусственного материала. Не нагревается, долговечна. Подходит для работы с жестким материалом."
+  },
+  {
+    id: "7",
+    name: "Серый Туман (Neutral medium dove gray)",
+    price: 315,
+    image: "/images/001.png",
+    category: "gel",
+    description: "Нейтральный средне-серо-голубой крем (Neutral medium dove gray). Идеальное плотное покрытие, самовыравнивающаяся формула."
+  },
+  {
+    id: "8",
+    name: "Грифельный Серый (Medium slate gray)",
+    price: 315,
+    image: "/images/002.png",
+    category: "gel",
+    description: "Грифельно-серый крем (Medium slate gray). Глубокий и насыщенный оттенок для стильного маникюра."
+  },
+  {
+    id: "9",
+    name: "Холодный Фарфор (Pale cool-toned off-white)",
+    price: 315,
+    image: "/images/004.png",
+    category: "gel",
+    description: "Бледно-белый холодный крем (Pale cool-toned off-white). Элегантный и утонченный оттенок."
   }
 ];
