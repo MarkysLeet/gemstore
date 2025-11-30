@@ -51,7 +51,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       >
         {/* Main Image */}
         <Image
-          src={product.image}
+          src="/images/lak.jpg"
           alt={product.name}
           fill
           className={`object-cover transition-opacity duration-500 ${isHovered && product.video ? "opacity-0" : "opacity-100"}`}

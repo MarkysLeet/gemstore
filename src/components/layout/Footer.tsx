@@ -1,9 +1,19 @@
+"use client";
+
 import Link from "next/link";
 import { Facebook, Instagram, Send } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { twMerge } from "tailwind-merge";
 
 export function Footer() {
+  const pathname = usePathname();
+  const isHomePage = pathname === "/";
+
+  // Hide on mobile unless on home page. Always show on desktop (md:block).
+  const visibilityClass = !isHomePage ? "hidden md:block" : "";
+
   return (
-    <footer className="bg-midnight-light border-t border-glass-border pt-16 pb-8 text-foreground">
+    <footer className={twMerge("bg-midnight-light border-t border-glass-border pt-16 pb-8 text-foreground", visibilityClass)}>
       <div className="container mx-auto px-4 md:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
           {/* Brand Column */}
