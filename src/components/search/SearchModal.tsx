@@ -88,10 +88,10 @@ export function SearchModal() {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
             transition={{ type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.5 }}
-            className="relative w-full md:w-[600px] h-auto max-h-[60vh] md:max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
+            className="relative w-full md:w-[600px] h-[60vh] md:h-auto md:max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
             onClick={(e) => e.stopPropagation()}
           >
-            <Command shouldFilter={false} className="flex flex-col h-full w-full bg-transparent">
+            <Command shouldFilter={false} className="relative md:flex md:flex-col h-full w-full bg-transparent">
               {/* Desktop: Input at Top (Static) */}
               <div className="hidden md:flex items-center border-b border-gray-200/50 px-6 py-4 bg-white/40 h-16 shrink-0">
                 <Search className="w-6 h-6 text-gray-800 mr-4" />
@@ -118,7 +118,7 @@ export function SearchModal() {
                  animate={{ height: "auto", opacity: 1 }}
                  exit={{ height: 0, opacity: 0 }}
                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-                 className="overflow-hidden flex flex-col order-first md:order-last min-h-0"
+                 className="absolute bottom-[88px] left-0 w-full z-10 md:static md:z-auto max-h-[calc(100%-88px)] md:max-h-none overflow-hidden flex flex-col min-h-0"
               >
                   <div className="flex-1 min-h-0 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block">
                     <Command.List>
@@ -250,7 +250,7 @@ export function SearchModal() {
               </motion.div>
 
               {/* Mobile: Input at Bottom (Static) */}
-              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area shrink-0 order-last md:order-first flex items-center gap-3">
+              <div className="md:hidden absolute bottom-0 left-0 w-full z-20 h-[88px] border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area flex items-center gap-3">
                 <div className="relative flex-1 flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
                   <Search className="w-5 h-5 text-gray-400 mr-3 shrink-0" />
                   <Command.Input
@@ -271,7 +271,7 @@ export function SearchModal() {
                 </div>
                 <button
                     onClick={closeSearch}
-                    className="text-sm font-medium text-pink-600 shrink-0 p-2 active:opacity-70"
+                    className="w-[70px] text-sm font-medium text-pink-600 shrink-0 p-2 active:opacity-70 text-center whitespace-nowrap"
                 >
                     Отмена
                 </button>
