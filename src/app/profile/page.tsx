@@ -24,21 +24,25 @@ export default function ProfilePage() {
       label: "Мои заказы",
       href: "/profile/orders",
       icon: Package,
+      mobileOnly: false,
     }] : []),
     {
       label: "О Бренде",
       href: "/about",
       icon: FlaskConical,
+      mobileOnly: true,
     },
     {
       label: "Контакты",
       href: "/contacts",
       icon: Phone,
+      mobileOnly: true,
     },
     {
       label: "Доставка и Оплата",
       href: "/shipping",
       icon: Truck,
+      mobileOnly: true,
     },
   ];
 
@@ -75,7 +79,7 @@ export default function ProfilePage() {
                 </Link>
                 <Link
                   href="/register"
-                  className="flex items-center justify-center px-4 py-3 rounded-xl bg-gray-100 text-gray-900 font-semibold hover:bg-gray-200 transition-colors"
+                  className="flex items-center justify-center px-4 py-3 rounded-xl bg-transparent border border-avenue-pink text-avenue-pink font-semibold hover:bg-pink-50 transition-colors"
                 >
                   Регистрация
                 </Link>
@@ -90,7 +94,9 @@ export default function ProfilePage() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center justify-between p-4 bg-white/40 border border-white/20 rounded-xl backdrop-blur-md hover:bg-white/60 transition-all group"
+              className={`flex items-center justify-between p-4 bg-white/40 border border-white/20 rounded-xl backdrop-blur-md hover:bg-white/60 transition-all group ${
+                item.mobileOnly ? "md:hidden" : ""
+              }`}
             >
               <div className="flex items-center gap-4">
                 <div className="w-10 h-10 rounded-full bg-white/50 flex items-center justify-center text-gray-700 group-hover:text-avenue-pink transition-colors">
