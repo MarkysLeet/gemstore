@@ -51,7 +51,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
       >
         {/* Main Image */}
         <Image
-          src="/images/lak.jpg"
+          src={product.image || "/images/lak.jpg"}
           alt={product.name}
           fill
           className={`object-cover transition-opacity duration-500 ${isHovered && product.video ? "opacity-0" : "opacity-100"}`}
@@ -74,23 +74,6 @@ export function ProductCard({ product, className }: ProductCardProps) {
 
         {/* Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-midnight via-transparent to-transparent opacity-60" />
-
-        {/* Floating Texture Smear (Top Right) */}
-        {product.texture && (
-          <motion.div
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            className="absolute top-4 right-4 w-12 h-12 z-10 drop-shadow-2xl"
-          >
-             <Image
-               src={product.texture}
-               alt="Texture"
-               width={48}
-               height={48}
-               className="object-contain drop-shadow-[0_5px_15px_rgba(0,0,0,0.5)]"
-             />
-          </motion.div>
-        )}
 
         {/* "Liquid" Add to Cart Button */}
         <div className="absolute bottom-4 right-4 z-20">
