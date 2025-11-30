@@ -88,10 +88,10 @@ export function SearchModal() {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
             transition={{ type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.5 }}
-            className="relative w-full md:w-[600px] h-auto max-h-[60vh] md:max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
+            className="relative w-full md:w-[600px] h-[60vh] md:h-auto md:max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
             onClick={(e) => e.stopPropagation()}
           >
-            <Command shouldFilter={false} className="flex flex-col h-full w-full bg-transparent">
+            <Command shouldFilter={false} className="relative md:flex md:flex-col h-full w-full bg-transparent">
               {/* Desktop: Input at Top (Static) */}
               <div className="hidden md:flex items-center border-b border-gray-200/50 px-6 py-4 bg-white/40 h-16 shrink-0">
                 <Search className="w-6 h-6 text-gray-800 mr-4" />
@@ -118,7 +118,7 @@ export function SearchModal() {
                  animate={{ height: "auto", opacity: 1 }}
                  exit={{ height: 0, opacity: 0 }}
                  transition={{ duration: 0.4, ease: [0.25, 1, 0.5, 1] }}
-                 className="overflow-hidden flex flex-col order-first md:order-last min-h-0"
+                 className="absolute bottom-[88px] left-0 w-full z-10 md:static md:z-auto max-h-[calc(100%-88px)] md:max-h-none overflow-hidden flex flex-col min-h-0"
               >
                   <div className="flex-1 min-h-0 overflow-y-auto p-2 scrollbar-thin scrollbar-thumb-gray-300 flex flex-col justify-end md:block">
                     <Command.List>
@@ -250,20 +250,20 @@ export function SearchModal() {
               </motion.div>
 
               {/* Mobile: Input at Bottom (Static) */}
-              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area shrink-0 order-last md:order-first">
-                <div className="relative flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
+              <div className="md:hidden absolute bottom-0 left-0 w-full z-20 h-[88px] border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area flex items-center gap-3">
+                <div className="relative flex-1 flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
                   <Search className="w-5 h-5 text-gray-400 mr-3 shrink-0" />
                   <Command.Input
                     autoFocus
                     placeholder="Поиск..."
                     value={query}
                     onValueChange={setQuery}
-                    className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground h-full"
+                    className="flex-1 bg-transparent border-none outline-none text-xl placeholder:text-gray-400 text-foreground h-full pr-10"
                   />
                   {query && (
                     <button
                       onClick={() => setQuery("")}
-                      className="ml-2 p-1 bg-gray-200 rounded-full"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 p-1 bg-gray-200 rounded-full"
                     >
                        <X className="w-3 h-3 text-gray-500" />
                     </button>
@@ -271,9 +271,9 @@ export function SearchModal() {
                 </div>
                 <button
                     onClick={closeSearch}
-                    className="w-full mt-3 py-3 text-center text-gray-500 font-medium"
+                    className="w-[70px] text-sm font-medium text-pink-600 shrink-0 p-2 active:opacity-70 text-center whitespace-nowrap"
                 >
-                    Закрыть
+                    Отмена
                 </button>
               </div>
             </Command>
