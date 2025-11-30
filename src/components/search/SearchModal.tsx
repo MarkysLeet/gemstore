@@ -88,7 +88,7 @@ export function SearchModal() {
             initial={{ scale: 0.95, y: 20, opacity: 0 }}
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.95, y: 20, opacity: 0 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
+            transition={{ type: "tween", ease: [0.25, 1, 0.5, 1], duration: 0.5 }}
             className="relative w-full md:w-[600px] h-auto max-h-[60vh] md:max-h-[85vh] md:rounded-3xl shadow-[0_20px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden flex flex-col bg-white/40 backdrop-blur-2xl border border-white/60"
             onClick={(e) => e.stopPropagation()}
           >

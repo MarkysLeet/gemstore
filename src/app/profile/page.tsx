@@ -2,101 +2,125 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { User, Package, Settings, LogOut } from "lucide-react";
+import {
+  Package,
+  FlaskConical,
+  Phone,
+  Truck,
+  ChevronRight,
+  LogOut,
+  User as UserIcon
+} from "lucide-react";
+import Link from "next/link";
 
 export default function ProfilePage() {
   const { user, logout } = useAuth();
   const router = useRouter();
 
-  useEffect(() => {
-    if (!user) {
-      router.push("/login");
-    }
-  }, [user, router]);
-
-  if (!user) return null;
+  // Navigation Items Configuration
+  const navItems = [
+    // Show "My Orders" only if logged in
+    ...(user ? [{
+      label: "Мои заказы",
+      href: "/profile/orders",
+      icon: Package,
+    }] : []),
+    {
+      label: "О Бренде",
+      href: "/about",
+      icon: FlaskConical,
+    },
+    {
+      label: "Контакты",
+      href: "/contacts",
+      icon: Phone,
+    },
+    {
+      label: "Доставка и Оплата",
+      href: "/shipping",
+      icon: Truck,
+    },
+  ];
 
   return (
-    <div className="min-h-screen bg-avenue-bg pt-24 md:pt-32 pb-12">
-      <div className="container mx-auto px-4 md:px-6">
-        <h1 className="font-display text-4xl font-bold mb-8">Личный кабинет</h1>
+    <div className="min-h-screen bg-avenue-bg pt-24 md:pt-32 pb-24">
+      <div className="container mx-auto px-4 md:px-6 max-w-lg">
 
-        <div className="grid lg:grid-cols-4 gap-8">
-          {/* Sidebar */}
-          <div className="lg:col-span-1">
-            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-              <div className="flex items-center gap-4 mb-8">
-                <div className="w-16 h-16 bg-avenue-pink/10 rounded-full flex items-center justify-center text-avenue-pink">
-                  <User className="w-8 h-8" />
-                </div>
-                <div>
-                  <div className="font-bold text-lg">{user.name}</div>
-                  <div className="text-sm text-gray-500">{user.email}</div>
-                </div>
+        {/* HERO SECTION */}
+        <div className="mb-8">
+          {user ? (
+            // LOGGED IN STATE
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4">
+              <div className="w-16 h-16 bg-avenue-pink/10 rounded-full flex items-center justify-center text-avenue-pink shrink-0">
+                <UserIcon className="w-8 h-8" />
               </div>
-
-              <nav className="space-y-2">
-                <button className="w-full flex items-center gap-3 p-3 rounded-xl bg-avenue-pink/5 text-avenue-pink font-medium">
-                  <Package className="w-5 h-5" /> Мои заказы
-                </button>
-                <button className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-gray-50 text-gray-600 font-medium transition-colors">
-                  <Settings className="w-5 h-5" /> Настройки
-                </button>
-                <button
-                  onClick={() => { logout(); router.push("/"); }}
-                  className="w-full flex items-center gap-3 p-3 rounded-xl hover:bg-red-50 text-red-500 font-medium transition-colors"
+              <div>
+                <h1 className="font-display text-2xl font-bold">Добро пожаловать,</h1>
+                <p className="text-xl text-gray-900 font-medium">{user.name}</p>
+              </div>
+            </div>
+          ) : (
+            // GUEST STATE
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 text-center">
+              <h1 className="font-display text-2xl font-bold mb-2">Личный кабинет</h1>
+              <p className="text-gray-500 mb-6">
+                Войдите или зарегистрируйтесь, чтобы управлять заказами и получить персональные предложения.
+              </p>
+              <div className="grid grid-cols-2 gap-4">
+                <Link
+                  href="/login"
+                  className="flex items-center justify-center px-4 py-3 rounded-xl bg-avenue-pink text-white font-semibold hover:bg-avenue-pink/90 transition-colors"
                 >
-                  <LogOut className="w-5 h-5" /> Выйти
-                </button>
-              </nav>
-            </div>
-          </div>
-
-          {/* Content */}
-          <div className="lg:col-span-3">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-              <h2 className="font-bold text-xl mb-6">История заказов</h2>
-
-              <div className="space-y-4">
-                {/* Mock Order */}
-                <div className="border border-gray-100 rounded-xl p-6 hover:border-avenue-pink/30 transition-colors">
-                  <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
-                    <div>
-                      <div className="text-sm text-gray-500 mb-1">Заказ от 24 ноября 2024</div>
-                      <div className="font-bold text-lg">№ 4829-11</div>
-                    </div>
-                    <span className="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm font-medium">
-                      Доставлен
-                    </span>
-                  </div>
-                  <div className="flex gap-4 items-center">
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg" />
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg" />
-                    <div className="text-sm text-gray-500 ml-2">+ еще 2 товара</div>
-                    <div className="ml-auto font-bold text-lg">8 450 ₽</div>
-                  </div>
-                </div>
-
-                <div className="border border-gray-100 rounded-xl p-6 hover:border-avenue-pink/30 transition-colors">
-                  <div className="flex flex-wrap justify-between items-start gap-4 mb-4">
-                     <div>
-                      <div className="text-sm text-gray-500 mb-1">Заказ от 10 октября 2024</div>
-                      <div className="font-bold text-lg">№ 3291-10</div>
-                    </div>
-                    <span className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm font-medium">
-                      Выполнен
-                    </span>
-                  </div>
-                   <div className="flex gap-4 items-center">
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg" />
-                    <div className="ml-auto font-bold text-lg">2 100 ₽</div>
-                  </div>
-                </div>
+                  Войти
+                </Link>
+                <Link
+                  href="/register"
+                  className="flex items-center justify-center px-4 py-3 rounded-xl bg-gray-100 text-gray-900 font-semibold hover:bg-gray-200 transition-colors"
+                >
+                  Регистрация
+                </Link>
               </div>
             </div>
-          </div>
+          )}
         </div>
+
+        {/* NAVIGATION LIST (The Hub) */}
+        <div className="w-full space-y-2">
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex items-center justify-between p-4 bg-white/40 border border-white/20 rounded-xl backdrop-blur-md hover:bg-white/60 transition-all group"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-10 h-10 rounded-full bg-white/50 flex items-center justify-center text-gray-700 group-hover:text-avenue-pink transition-colors">
+                  <item.icon className="w-5 h-5" />
+                </div>
+                <span className="font-medium text-gray-900">{item.label}</span>
+              </div>
+              <ChevronRight className="w-5 h-5 text-gray-400 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          ))}
+
+          {/* Logout Button (Only if logged in) */}
+          {user && (
+            <button
+              onClick={() => {
+                logout();
+                router.push("/");
+              }}
+              className="w-full flex items-center justify-between p-4 bg-white/40 border border-white/20 rounded-xl backdrop-blur-md hover:bg-red-50/50 hover:border-red-100 transition-all group mt-6"
+            >
+              <div className="flex items-center gap-4">
+                 <div className="w-10 h-10 rounded-full bg-white/50 flex items-center justify-center text-red-500">
+                  <LogOut className="w-5 h-5" />
+                </div>
+                <span className="font-medium text-red-600">Выйти</span>
+              </div>
+            </button>
+          )}
+        </div>
+
       </div>
     </div>
   );
