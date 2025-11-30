@@ -9,6 +9,7 @@ import { PRODUCTS } from "@/lib/data";
 import { useCart } from "@/context/CartContext";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { Product } from "@/components/product/ProductCard";
 
 export function SearchModal() {
   const { isSearchOpen, closeSearch } = useSearch();
@@ -19,6 +20,7 @@ export function SearchModal() {
 
   useEffect(() => {
     setMounted(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Reset query when closed
@@ -60,12 +62,12 @@ export function SearchModal() {
     setQuery(tagQuery);
   };
 
-  const handleProductSelect = (product: any) => {
+  const handleProductSelect = (product: Product) => {
     router.push(`/product/${product.id}`);
     closeSearch();
   };
 
-  const handleAddToCart = (e: React.MouseEvent, product: any) => {
+  const handleAddToCart = (e: React.MouseEvent, product: Product) => {
     e.stopPropagation();
     const isInCart = items.some((item) => item.id === product.id);
     if (isInCart) {
@@ -172,7 +174,7 @@ export function SearchModal() {
                                  className="group flex items-center gap-4 p-3 rounded-xl border border-transparent transition-all cursor-pointer hover:bg-white/60 hover:backdrop-blur-md hover:border-white/40 data-[selected=true]:bg-white/60 data-[selected=true]:backdrop-blur-md data-[selected=true]:border-white/40"
                                >
                                   <div className="relative w-20 h-20 rounded-lg overflow-hidden shrink-0 bg-gray-100">
-                                    <Image src={product.image} alt={product.name} fill className="object-cover" />
+                                    <Image src="/images/lak.jpg" alt={product.name} fill className="object-cover" />
                                   </div>
                                   <div className="flex-1 min-w-0">
                                     <h4 className="font-serif font-medium text-foreground truncate text-lg">{product.name}</h4>
@@ -282,7 +284,7 @@ export function SearchModal() {
                                  className="w-full bg-white/60 backdrop-blur-md border border-white/40 rounded-xl p-3 flex items-center gap-3 shadow-sm active:scale-95 transition-transform"
                                >
                                   <div className="relative w-16 h-16 rounded-lg overflow-hidden shrink-0 bg-gray-100">
-                                    <Image src={product.image} alt={product.name} fill className="object-cover" />
+                                    <Image src="/images/lak.jpg" alt={product.name} fill className="object-cover" />
                                   </div>
                                   <div className="flex-1 min-w-0">
                                     <h4 className="font-serif text-gray-900 truncate text-base">{product.name}</h4>
