@@ -250,8 +250,8 @@ export function SearchModal() {
               </motion.div>
 
               {/* Mobile: Input at Bottom (Static) */}
-              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area shrink-0 order-last md:order-first">
-                <div className="relative flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
+              <div className="md:hidden border-t border-gray-200/50 p-4 bg-white/80 backdrop-blur-xl pb-safe-area shrink-0 order-last md:order-first flex items-center gap-3">
+                <div className="relative flex-1 flex items-center bg-gray-100 rounded-full px-4 shadow-inner h-14">
                   <Search className="w-5 h-5 text-gray-400 mr-3 shrink-0" />
                   <Command.Input
                     autoFocus
@@ -271,9 +271,9 @@ export function SearchModal() {
                 </div>
                 <button
                     onClick={closeSearch}
-                    className="w-full mt-3 py-3 text-center text-gray-500 font-medium"
+                    className="text-sm font-medium text-pink-600 shrink-0 p-2 active:opacity-70"
                 >
-                    Закрыть
+                    Отмена
                 </button>
               </div>
             </Command>
