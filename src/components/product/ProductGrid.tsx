@@ -5,8 +5,8 @@ import { ProductCard } from "./ProductCard";
 import { PRODUCTS } from "@/lib/data";
 
 export function ProductGrid() {
-  // Filter for specific new arrivals: IDs 7, 8, 9 (new) and 1 (existing popular)
-  const NEW_ARRIVALS = PRODUCTS.filter(p => ["7", "8", "9", "1"].includes(p.id));
+  // Filter for specific new arrivals: IDs 1, 2, 3
+  const NEW_ARRIVALS = PRODUCTS.filter(p => ["1", "2", "3"].includes(p.id));
 
   return (
     <section className="py-24 bg-background relative overflow-hidden">
@@ -25,7 +25,7 @@ export function ProductGrid() {
           </motion.h2>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div className="flex flex-wrap justify-center gap-6 md:gap-8">
           {NEW_ARRIVALS.map((product, index) => (
             <motion.div
               key={product.id}
@@ -33,6 +33,9 @@ export function ProductGrid() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
+              // Mobile: 2 cols (gap 24px -> 1 gap -> item = 50% - 12px)
+              // Desktop: 4 cols (gap 32px -> 3 gaps -> item = 25% - 24px)
+              className="w-full sm:w-[calc(50%-12px)] md:w-[calc(25%-24px)]"
             >
               <ProductCard product={product} />
             </motion.div>
