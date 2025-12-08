@@ -43,6 +43,17 @@ export function SearchModal() {
     };
   }, [isSearchOpen]);
 
+  // Handle ESC key to close search
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isSearchOpen) {
+        closeSearch();
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [isSearchOpen, closeSearch]);
+
   const filteredProducts = query
     ? PRODUCTS.filter((product) =>
         product.name.toLowerCase().includes(query.toLowerCase()) ||

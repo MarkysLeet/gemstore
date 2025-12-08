@@ -35,7 +35,7 @@ export default function RootLayout({
   return (
     <html lang="ru">
       <body
-        className={`${inter.variable} ${playfair.variable} antialiased bg-background text-foreground overflow-x-hidden`}
+        className={`${inter.variable} ${playfair.variable} antialiased bg-background text-foreground overflow-x-hidden flex flex-col min-h-screen`}
       >
         <AuthProvider>
           <ProductProvider>
@@ -48,7 +48,7 @@ export default function RootLayout({
                 <BottomNav />
 
                 {/* Main Content - No top padding for hero video overlap, bottom padding for mobile nav */}
-                <main className="min-h-screen pb-24 md:pb-0">
+                <main className="flex-1 flex flex-col pb-24 md:pb-0">
                   {children}
                 </main>
 
